@@ -8,7 +8,7 @@ Today I Learn
 - Hyperledger Fabric<br>
 - Peer, Node<br>
 
-## 1.1
+## 2020.1.1
 ###블록체인 공부
 
 - 블록체인<br>
