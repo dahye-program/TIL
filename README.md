@@ -33,6 +33,6 @@ Today I Learn
 가용성<br>
 
 ## 2020.1.2
-### 1day1commit
+### 1day 1commit
 
 - 1일1커밋 하고싶다.
