@@ -36,7 +36,7 @@ Today I Learn
 ### 1day 1commit
 
 - 1일1커밋 하고싶다.
-- 리눅스
+- 리눅스<br>
 .은 현재위치(경로)<br>
 ..은 상위폴더(부모폴더?)<br>
 ~은 사용자경로 == home/computer(사용자이름)/<br>
