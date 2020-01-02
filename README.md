@@ -36,3 +36,12 @@ Today I Learn
 ### 1day 1commit
 
 - 1일1커밋 하고싶다.
+- 리눅스
+.은 현재위치(경로)<br>
+..은 상위폴더(부모폴더?)<br>
+~은 사용자경로 == home/computer(사용자이름)/<br>
+/는 c드라이브(가장 바깥 경로)<br>
+cd는 change directory, ls는 list<br>
+.파일이름 == 숨겨진 파일 -> -a나 --all 명령어 실행 시, 숨겨진 파일도 보여줌<br>
+--help는 flag 옵션 설명해줌<br>
+- 도리야 고마워
