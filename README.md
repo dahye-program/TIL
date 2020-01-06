@@ -45,3 +45,7 @@ cd는 change directory, ls는 list<br>
 .파일이름 == 숨겨진 파일 -> -a나 --all 명령어 실행 시, 숨겨진 파일도 보여줌<br>
 --help는 flag 옵션 설명해줌<br>
 - 도리야 고마워
+
+
+## 2020.1.6
+### 1day 1commit
