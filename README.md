@@ -52,3 +52,30 @@ cd는 change directory, ls는 list<br>
 
 ## 2020.1.7
 ## 1day 1commit^^
+- Hyperledger Fabric <br>
+CA : 네트워크 멤버 및 사용자에게 PKI기반 인증서를 발급하는 인증 컴퍼넌트<br>
+-> 각 구성원에게 루트 인증서 하나를 발급하고 각 인증된 사용자에게 하나의 인증서를 발급<br>
+실제 구성시) Fabric-CA server/client를 이용하여 인증서 발급<br>
+전자서명알고리즘 이용 -> 전자서명 생성은 ECDSA가 빠르고, 전자서명 검증은 RSA가 빠름<br>
+
+-피어(peer)
+분산 원장 데이터의 보증(Endorsement)과 검증(validation)이 이뤄지는 기본적인 노드<br>
+원장데이터 및 스마트계약(Smart Contract)이 이뤄지는 블록체인 컴포넌트<br>
+다뤄지는 원장은 스마트계약에 의해 생성된 모든 트랜잭션을 변치않는 형태로 만들어진 기록<br>
+스마트계약과 원장은 각각 네트워크에서 블록체인의 분산 처리 및 분산 저장하는데 (블록체인화) 사용<br>
+피어의 P2P구성으로 인해 다중화 분산원장과 스마트계약이 존재하게되므로 단일장애지점(Single Point of Failure)을 방지하는 수단(분산화)<br>
+
+-보증과정(Endorsement)
+피어는 보증과정을 처리하기위해 체인코드를 실행하여 트랜잭션의 유효성을 검사<br>
+이 때,<br>
+피어 = ESCC를 실행하는 엔도서<br>
+체인코드 = ESCC(Endorsement System Chain Code)<br>
+-검증과정(Validation)
+피어는 검증과정을 처리하기위해 체인코드를 실행하여 트랜잭션의 2차검사를 진행 후 원장에 반영<br>
+이 때, <br>
+피어 = VSCC를 실행하는 커미터<br>
+체인코드 = VSCC(Validation System Chain Code)<br>
+
+-커미터는 ESCC의 결과값 해시값을 가지고 VSCC의 결과값과 비교하여 이중교차검증을 진행<br>
+
+
