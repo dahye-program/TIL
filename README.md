@@ -53,7 +53,7 @@ cd는 change directory, ls는 list<br>
 ## 2020.1.7
 ## 1day 1commit^^
 - Hyperledger Fabric <br>
-CA : 네트워크 멤버 및 사용자에게 PKI기반 인증서를 발급하는 인증 컴퍼넌트<br>
+CA(Certificate Authority) : 네트워크 멤버 및 사용자에게 PKI기반 인증서를 발급하는 인증 컴퍼넌트<br>
 -> 각 구성원에게 루트 인증서 하나를 발급하고 각 인증된 사용자에게 하나의 인증서를 발급<br>
 실제 구성시) Fabric-CA server/client를 이용하여 인증서 발급<br>
 전자서명알고리즘 이용 -> 전자서명 생성은 ECDSA가 빠르고, 전자서명 검증은 RSA가 빠름<br>
