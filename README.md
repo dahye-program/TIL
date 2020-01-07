@@ -49,3 +49,6 @@ cd는 change directory, ls는 list<br>
 
 ## 2020.1.6
 ### 1day 1commit
+
+## 2020.1.7
+## 1day 1commit^^
