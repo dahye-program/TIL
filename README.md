@@ -49,7 +49,8 @@ cd는 change directory, ls는 list<br>
 
 ## 2020.1.6
 ### 1day 1commit
-
+- 진리언니 출국 전 다같이 밥!!
+- 북촌갈비!! 진로!!
 ## 2020.1.7
 ## 1day 1commit^^
 - Hyperledger Fabric <br>
