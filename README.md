@@ -253,8 +253,7 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 : MITM(중간자 공격 = Man in the Middle Attack)
 **CRL(Certificate Revocation Lists)**<br>
 : 폐기된 인증서에 대한 목록<br>
-: CA가 관리<br>
-<br>
+: CA가 관리<br><br>
 **MSP(Membership Service Provider)** : peer, orderer, Fabric-CA, Admin 등의 역할과 소속, 권한 등 정의<br>
 - Local MSP<br>
 : 어떤 노드가 peer, orderer,client인지 정의<br>
