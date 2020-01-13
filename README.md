@@ -127,6 +127,7 @@ PoW(Proof of Work) : 암호화된 퍼즐의 답을 가장 먼저 찾아내는 �
 :	보증 정책 확인<br>
 :	트랜잭션을 정해진 순서에 맞춰 정렬<br>
 :	정렬된 트랜잭션의 유효성 검증 후 최신 블록 업데이트<br>
+<br>
 < 하이퍼레저 패브릭 ><br>
 하이퍼레저 = 블록체인 플랫폼 (by 리눅스)<br> 
 허가형 프라이빗 블록체인으로 퍼블릭 블록체인(비트코인, 이더리움)과는 달리 MSP(Membership Service Provider)라는 인증 관리 시스템에 등록된 사용자만이 하이퍼레저 패브릭 블록체인에 참여 가능<br> 
@@ -165,5 +166,109 @@ QSCC, CSCC, LSCC는 사용자에 의해 CLI 명령어로 실행<br>
 ESCC – Endorsing peer(트랜잭션의 보증을 담당) <br>
 VSCC – Committing peer(블록에 대한 검증을 담당)<br>
 
+## 2020.1.8
+### 1day 1commit
 
-
+블록체인 참여자는 체인코드를 통해서 분산원장에 데이터를 기록하고 읽어온다.<br>
+대부분의 경우는 비즈니스 모델에 맞는 분산 애플리케이션과 함께 개발되어 사용<br>
+**분산 애플리케이션** <br>
+분산 환경에서 비즈니스 거래 등을 편리하게 해주기 위해 사용되는 애플리케이션<br>
+다양한 종류의 SDK(Software Development Kit)제공<br>
+SDK를 통해 트랜잭션을 생성하고 체인코드 함수를 불러옴<br>
+peer 네트워크에 설치된 체인코드 실행 가능<br>
+**체인코드**<br>
+- 읽기(query)-5단계, 쓰기(write/update)-9단계<br>
+Ex) **읽기** - A는 peer 네트워크의 peer1과 연결<br>
+1. 분산 애플리케이션은 분산원장에 접근하기 위해서 사용자A의 인증서를 이용해 인증 과정을 통과한 후 peer1과 연결<br>
+2. 정상적으로 연결되고, 분산 애플리케이션은 peer1에 설치된 체인코드의 query 함수 호출<br>
+3. peer1은 요청받은 체인코드의 query 함수를 실행하여 자신의 로컬 저장소에 저장되어있는 분산원장의 데이터를 분산 애플리케이션에 전달<br>
+-> Query 함수 실행을 요청받은 peer1 외 다른 peer는 동작 X<br>
+Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
+위의 과정과 동일 + <br>
+1. peer1이 트랜잭션 입력값에 대한 결과값과 보증 정책을 확인<br>
+2. 트랜잭션 실행 결과값이 정상적이고 peer1의 보증조건을 충족시키면 peer1은 결과값과 함께 peer1의 디지털 인증서를 분산 애플리케이션에 전달<br>
+3. 분산 애플리케이션은 트랜잭션 결과값과 peer1의 디지털 인증서와 함께 트랜잭션을 orderer 노드로 전송<br>
+4. Orderer는 수신한 트랜잭션을 순서에 맞게 정렬하여 블록체인의 최신 블록을 생성, 생성한 블록을 자신이 속한 네트워크의 모든 peer에게 전달<br>
+-> Orderer는 트랜잭션을 순서에 맞게 정렬하여 블록을 생성 (트랜잭션의 내용 확인 or 검증X)<br>
+5. 모든 peer는 해당 블록에 포함된 모든 트랜잭션에 대한 결과값과 인증서를 검증<br>
+6. 검증에 문제 없을 시, 로컬 저장소에 저장된 분산원장 업데이트<br>
+7. peer는 블록 업데이트 결과를 분산 애플리케이션에 알려줌<br>
+**보증 정책(Endorsement Policy)**<br>
+- 트랜잭션이 블록에 포함되려면 peer의 허가를 받아야함 <br>
+- 보증 정책은 트랜잭션을 생성하는 클라이언트(분산 애플리케이션)와 peer간에 작용<br>
+- 트랜잭션 보증과 블록에 대한 검증을 하는 peer노드를 각 조직마다 소유<br>
+→ 어느 한 조직에서 분산원장에 대한 기록을 독단적으로 변경/조작 X<br>
+→ 탈중앙화 네트워크로 만들어주는 핵심 요소<br>
+- 채널을 통한 연결 (서로 다른 채널에 있는 peer간에는 서로 다른 분산원장에 대한 정보 공유X)<br>
+**CSCC**<br>
+→ 채널 생성<br>
+→ Genesis block 생성(채널 구성원, 채널 정책, 각 peer의 역할)<br>
+**분산원장**<br>
+→ World state : 현재 상태를 나타냄<br>
+→ 블록체인 : 원장의 생성 시점부터 현재까지의 사용기록<br>
+- World state<br>
+: 데이터베이스 형태로 블록체인과 분리되어 구축(데이터의 기록, 수정, 읽기 등이 빈번하게 발생하기때문)<br>
+: 저장된 데이터는 합의 과정에 의해 블록체인에 포함되기 전까지 체인코드를 통해 조회/변경/삭제 가능<br>
+: 합의에 의해 결정된 블록 및 블록체인은 절대 수정 X<br>
+: 블록체인은 데이터 요청이 거의 X, append-only 방식의 저장이 목적이기 때문에 파일 시스템 형태로 저장<br>
+- Version : World state가 업데이트될 때마다 증가<br>
+→ 트랜잭션의 version 값과 World state의 version값이 같아야 트랜잭션 내용 업데이트<br>
+- 블록체인<br>
+: 블록들이 합의 과정을 마친 후 암호학적 기법을 통해 생성된 순서대로 연결되어 저장<br>
+- 블록 : Header, Data, Metadata 로 구성<br>
+→ Header : 현재 발생하고 있는 트랜잭션에 대한 해시값, 이전 단계에서 생성된 블록의 해시값 포함<br>
+: Block number : 0부터 시작하여 합의 과정에 의해 블록이 생성될 때마다 숫자가 1씩 증가<br>
+: Current block hash : 트랜잭션의 해시값<br>
+: Previous block hash : 이전 블록에 대한 해시값<br>
+→ Data : 트랜잭션<br>
+: Header : 트랜잭션의 version 정보와 트랜잭션이 실행되는 체인코드의 이름 등 명시<br>
+: Signature : 트랜잭션 생성자의 Identity 관련 디지털 인증서 정보<br>
+: Proposal : 체인코드에 들어가는 트랜잭션의 입력값이 저장<br>
+: Response : 트랜잭션 처리 결과값을 Read/Write set 형태로 변환<br>
+: Endorsement : 트랜잭션을 보증해 준 peer의 Identity 정보가 포함<br>
+: Chain name : 체인코드 구분<br>
+→ Metadata : 블록 생성자의 Identity 정보, 블록에 포함되어있는 Transaction 보증 여부<br>
+<br>
+**Gossip 프로토콜**<br>
+: Leader peer를 대표로 orderer와 통신<br>
+**Identity**<br>
+: PKI 기반의 디지털 인증서 : 네트워크 노드들의 서로 신원 확인 (peer, orderer, client)<br>
+**PKI** : 디지털 인증서를 안전하게 제공/생성/관리<br>
+- 디지털 인증서<br>
+- 공개키/비밀키<br>
+- CA(Certificate Authority)<br>
+- Certificate Revocation List<br>
+**디지털 인증서**<br>
+: Certificate Serial Number : 각각의 인증서를 구분하는 고유의 시리얼 번호를 포함하는 필드 <br>
+: Signature Algorithm Identifer for CA : 인증서의 위/변조를 방지하기위해 사용되는 암호화 알고리즘 <br>
+: Issuer Name : 인증서를 발급한 CA의 정보<br>
+: Validity Period : 인증서의 유효기간의 시작일, 만료일<br>
+: Subject Public Key Information : 인증서 사용자의 공개키<br>
+: Etension(s) : 인증서의 추가적인 정보와 정책에 관한 내용<br>
+: A Signature : CA의 디지털 인증서 정보<br>
+**공개키/비밀키**<br>
+: 신원 인증/데이터 암호화 만족<br>
+: 공개키를 이용해 암호화를 수행 → 원하는 상대에게만 데이터 공개 가능<br>
+: 비밀키를 이용해 암호화를 수행 → 신원 인증<br>
+**CA(Certificate Authority)**<br>
+: MITM(중간자 공격 = Man in the Middle Attack)
+**CRL(Certificate Revocation Lists)**<br>
+: 폐기된 인증서에 대한 목록<br>
+: CA가 관리<br>
+<br>
+**MSP(Membership Service Provider)** : peer, orderer, Fabric-CA, Admin 등의 역할과 소속, 권한 등 정의<br>
+- Local MSP<br>
+: 어떤 노드가 peer, orderer,client인지 정의<br>
+: client가 Admin인지 일반 유저인지 노드별 권한 정의 가능<br>
+- Channel MSP<br>
+: 채널 구성원들에 대한 멤버십 정의와 권한을 부여<br>
+<br>
+**Orderer** : 블록을 생성하여 peer에게 전달<br>
+1. 트랜잭션 제출<br>
+ : 분산 애플리케이션이 트랜잭션 보증을 담당하는 Endorsing peer에게 트랜잭션을 제출<br>
+ : Endorsing peer들은 Proposal 값을 바탕으로 체인코드를 시뮬레이션<br>
+ : 올바른 결과값이 나오면 Endorsing peer는 자신의 Identity를 이용해 서명한 디지털 인증서와 Read/Write set를 함께 분산 애플리케이션에 전송<br>
+2. 블록 패키징<br>
+ : 위의 제출 과정에서 제출한 트랜잭션을 orderer가 수집하여 순서대로 정렬하여 새로운 블록 생성
+3. 검증<br>
+ : orderer가 생성한 최신 블록을 각 조직의 peer들에게 전달, 최신 블록을 전달받은 peer는 해당 블록이 올바르게 생성됐는지 검증<br>
