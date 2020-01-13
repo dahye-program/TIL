@@ -227,8 +227,7 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 : Response : 트랜잭션 처리 결과값을 Read/Write set 형태로 변환<br>
 : Endorsement : 트랜잭션을 보증해 준 peer의 Identity 정보가 포함<br>
 : Chain name : 체인코드 구분<br>
-→ Metadata : 블록 생성자의 Identity 정보, 블록에 포함되어있는 Transaction 보증 여부<br>
-<br>
+→ Metadata : 블록 생성자의 Identity 정보, 블록에 포함되어있는 Transaction 보증 여부<br><br>
 **Gossip 프로토콜**<br>
 : Leader peer를 대표로 orderer와 통신<br>
 **Identity**<br>
