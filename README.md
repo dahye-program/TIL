@@ -260,8 +260,7 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 : 어떤 노드가 peer, orderer,client인지 정의<br>
 : client가 Admin인지 일반 유저인지 노드별 권한 정의 가능<br>
 - Channel MSP<br>
-: 채널 구성원들에 대한 멤버십 정의와 권한을 부여<br>
-<br>
+: 채널 구성원들에 대한 멤버십 정의와 권한을 부여<br><br>
 **Orderer** : 블록을 생성하여 peer에게 전달<br>
 1. 트랜잭션 제출<br>
  : 분산 애플리케이션이 트랜잭션 보증을 담당하는 Endorsing peer에게 트랜잭션을 제출<br>
