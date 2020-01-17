@@ -275,3 +275,5 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 ## 2020.1.16
 ### 1day 1commit
 
+## 12.26
+### 1day 1commit
