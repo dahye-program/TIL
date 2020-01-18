@@ -274,7 +274,6 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 
 ## 2020.1.16
 ### 1day 1commit
-#### 리눅스 세미나
 **리눅스 명령어**
 - cd(change directory)<br>
 : 디렉토리 이동<br>
