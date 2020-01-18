@@ -274,6 +274,27 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 
 ## 2020.1.16
 ### 1day 1commit
+#### 리눅스 세미나
+**리눅스 명령어**
+- cd(change directory)<br>
+: 디렉토리 이동<br>
+- .. <br>
+: 이전 폴더로<br>
+- ls(list)<br>
+: 목록 폴더 보기<br>
+- mkdir(make directory)<br>
+: 디렉토리 생성<br>
+- vi (vi editor)<br>
+: i -> 입력 모드<br>
+: q -> 종료<br>
+: wq -> 저장 후 종료<br>
+- rm(remove)<br>
+: 삭제<br>
+- --help<br> 
+: 도움말<br>
 
 ## 2020.1.17
+### 1day 1commit
+
+## 2020.1.18
 ### 1day 1commit
