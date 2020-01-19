@@ -300,3 +300,9 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 
 ## 2020.1.19
 ### 1day 1commit
+
+## 2020.1.18
+### 1day 1commit
+
+## 2020.1.19
+### 1day 1commit
