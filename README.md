@@ -307,19 +307,38 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 
 ## 2020.1.22
 ### 1day 1commit
+- mt 장소조사..
 
 ## 2020.1.23
 ### 1day 1commit
 
 ## 2020.1.24
 ### 1day 1commit
+- 학위수여식 포스터..
 
 ## 2020.1.25
 ### 1day 1commit
+- 설날이드아...
 
 ## 2020.1.28
 ### 1day 1commit
+- 학위수여식 2차 포스터...
+- 학위수여식 기본양식 현수막...
 
 ## 2020.1.30
 ### 1day 1commit
+**Kafka와 Solo 비교**
+- Kafka<br>
+: 데이터 피드를 관리하는 분산형 스트리밍 플랫폼(A distributed streaming platform)<br>
+: Producer, Consumer, Broker로 구성<br>
+- Producer : 특정 topic의 메시지를 생성하고, 해당 메시지를 broker에게 전달<br>
+- Broker : topic을 기준으로 메시지를 관리(분류)<br>
+- Consumer : 구독하는 topic의 메시지를 직접 가져감<br>
+: Kafka는 여러개의 broker들로 이루어진 클러스터라고 할 수 있..다..<br>
+
+- Solo<br>
+: 쉽게 이용되도록 만들어진 극히 간단한 서비스 <br>
+: 싱글 프로세스로 구성<br>
+: 사실상 합의라는 것이 없음<br>
+*테스트용으로 생각할 수 있다!!*
 
