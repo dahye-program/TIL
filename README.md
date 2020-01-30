@@ -331,9 +331,9 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 - Kafka<br>
 : 데이터 피드를 관리하는 분산형 스트리밍 플랫폼(A distributed streaming platform)<br>
 : Producer, Consumer, Broker로 구성<br>
-- Producer : 특정 topic의 메시지를 생성하고, 해당 메시지를 broker에게 전달<br>
-- Broker : topic을 기준으로 메시지를 관리(분류)<br>
-- Consumer : 구독하는 topic의 메시지를 직접 가져감<br>
+**Producer** : 특정 topic의 메시지를 생성하고, 해당 메시지를 broker에게 전달<br>
+**Broker** : topic을 기준으로 메시지를 관리(분류)<br>
+**Consumer** : 구독하는 topic의 메시지를 직접 가져감<br>
 : Kafka는 여러개의 broker들로 이루어진 클러스터라고 할 수 있..다..<br>
 
 - Solo<br>
