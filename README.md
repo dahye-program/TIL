@@ -102,12 +102,6 @@ CA(Certificate Authority) : 네트워크 멤버 및 사용자에게 PKI기반 �
 - **Commiting Peer(커미팅 피어) 또는 Committer** <br> 
 **하이퍼레저에서 트랜잭션의 검증**을 진행하는 객체<br>
 
-## 2020.1.9
-### 1day 1commit
-
-## 2020.1.10
-### 1day 1commit
-
 ## 2020.1.12
 ### 1day 1commit
 < 블록체인 > <br>
@@ -269,9 +263,6 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 3. 검증<br>
  : orderer가 생성한 최신 블록을 각 조직의 peer들에게 전달, 최신 블록을 전달받은 peer는 해당 블록이 올바르게 생성됐는지 검증<br>
 
-## 2020.1.14
-### 1day 1commit
-
 ## 2020.1.16
 ### 1day 1commit
 **리눅스 명령어**
@@ -292,25 +283,9 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 - --help<br> 
 : 도움말<br>
 
-## 2020.1.17
-### 1day 1commit
-
-## 2020.1.18
-### 1day 1commit
-
-## 2020.1.19
-### 1day 1commit
-
-
-## 2020.1.20
-### 1day 1commit
-
 ## 2020.1.22
 ### 1day 1commit
 - mt 장소조사..
-
-## 2020.1.23
-### 1day 1commit
 
 ## 2020.1.24
 ### 1day 1commit
@@ -342,12 +317,6 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 : 사실상 합의라는 것이 없음<br>
 *테스트용으로 생각할 수 있다!!*
 
-## 2020.1.31
-### 1day 1commit
-
-## 2020.2.1
-### 1day 1commit
-
 ## 2020.2.3
 ### 1day 1commit
 - 기술동향 세미나!!!!!!!!!!!! 
@@ -366,8 +335,6 @@ Ex) **쓰기** - A는 peer 네트워크의 peer1과 연결<br>
 - 언택트(untact) 서비스 영역 확대
 언택트 서비스는 비대면 서비스를 칭함
 
-## 2020.2.4
-### 1day 1commit
 
 ## 2020.2.5
 ### 1day 1commit
@@ -397,13 +364,32 @@ peer를 추가할 때마다 네트워크 구성을 수정해야해 → 근데 �
 ## 2020.2.6
 ### 1day 1commit
 - 스포츠산업 경진대회 발표 및 피드백
-- 정보보호 회식!
 
-## 2020.2.7
-### 1day 1commit
 
 ## 2020.2.8
 ### 1day 1commit
+- 통신(communication) : 소식을 전하는 것(정확한 사람에게, 정확한 시간에 맞춰, 다른사람이 모르게)<br>
+- HTTP(Hyper Text Transfer Protocol)통신<br>
+: Hyper Text(ex. HTML)를 전송하기위한 프로토콜<br>
+* 요청(request)과 응답(reponse)으로 이루어짐<br>
+1. 클라이언트가 서버에 요청<br>
+2. 서버가 응답<br>
+3. 사용자에게 보여줌<br>
+→ 연결 종료(connection close)<br>
+* 단방향적 통신 → 서버의 부하를 줄여 다른 접속을 원활하게 처리하기 위함 (DDOS공격 방지)<br>
+* 하지만 누군가 네트워크에서 신호를 가로챈다면 내용이 노출되는 보안상의 문제 발생(ex. id, password)<br>
+- HTTPS(HyperText Transfer Protocol over Secure Socket layer)<br>
+: 보안이 강화된 HTTP프로토콜 (완전히 새로운 프로토콜X) <br>
+: 증명서를 통해 서버 또는 클라이언트의 신원을 확인하고, 데이터를 암호화, 인증, 안정성을 보호할 수 있는 프로토콜<br>
+: HTTP통신의 소켓연결부분을 SSL로 대체한 것<br>
+: HTTP는 직접 TCP와 통신하지만, HTTPS는 SSL과 통신하고, SSL이 TCP와 통신 → 이는 성능이 조금 더 느리지만, 보안이 중요하기 때문에 사용 권장<br>
+* SSL : 일종의 보안 계층<br>
++ SSL이 보편화되면서 국제표준화기구(IETF)에서 이를 관리하기 시작했고, TLS로 이름 변경(== SSL과 TLS는 같다고 봐도 무방, 실제로 SSL이 사용됨)<br>
+* SSL인증서 목적<br>
+1. 클라이언트가 접속하련느 서버가 신뢰할 수 있는 사이트인지 보장<br>
+→ 사이트가 CA로부터 SSL인증서를 발급받았는지 확인<br>
+2. SSL통신에 사용할 공개키를 클라이언트에게 제공<br>
+
 
 ## 2020.2.9
 ### 1day 1commit
