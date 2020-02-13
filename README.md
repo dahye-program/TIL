@@ -385,3 +385,21 @@ peer를 추가할 때마다 네트워크 구성을 수정해야해 → 근데 �
 ## 2020.2.12
 ### 1day 1commit
 - 블록체인 
+
+## 2020.2.13
+### 1day 1commit
+- HTTP통신에서 사용하는 TCP 연결 3 way handshake방법
+클라이언트와 서버 또는 P2P Socket통신 등, 네트워크를 사용한 통신시 TCP통신을 많이 사용<br>
+TCP통신을 위한 네트워크 연결은 3way handshake라는 방식으로 연결<br>
+
+먼저, 클라이언트는 Closed상태, 서버는 LISTEN상태<br>
+1. 클라이언트가 서버에게 연결을 요청하기위해 SYN데이터를 보낸다.<br>
+2. 서버는 LISTEN상태였다가 SYN데이터를 받고 SYN_RCV상태로 변경된다.<br>
+3. 상태가 변경된 후, 요청을 정상적으로 받았다는 대답 ACK와 클라이언트도 포트를 열어달라는 SYN을 보낸다. (ACK+SYN) <br>
+위의 과정이 정상적으로 종료되면 서로의 포트가 ESTABLISHED되면서 연결된다.<br>
+
+- 상태
+**Closed** : 닫힌 상태<br>
+**LISTEN** : 포트가 열린 상태로 연결 요청 대기 중<br>
+**SYN_RCV** : SYNC요청을 받고 상대방의 응답을 기다리는 중<br>
+**ESTABLISHED** : 포트 연결 상태<br>
