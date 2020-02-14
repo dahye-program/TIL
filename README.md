@@ -411,3 +411,6 @@ TCP통신을 위한 네트워크 연결은 3way handshake라는 방식으로 연
 **LISTEN** : 포트가 열린 상태로 연결 요청 대기 중<br>
 **SYN_RCV** : SYNC요청을 받고 상대방의 응답을 기다리는 중<br>
 **ESTABLISHED** : 포트 연결 상태<br>
+
+## 2020.2.14
+### 1day 1commit
