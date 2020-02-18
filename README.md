@@ -494,5 +494,22 @@ RSA는 수학적인 함수를 기본으로 하고 두개의 독립된 키를 사
 
 ## 2020.2.18
 ### 1day 1commit
+**HTTP통신**<br>
+http통신에 있어서 클라이언트와 서버가 요청하고 응답하는 방식<br>
 - 3-way-handshake
+:TCP/IP 프로토콜을 이용해서 통신을 하는 응용 프로그램이 데이터를 전송하기 전에 먼저 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션을 수립하는 과정<br>
+1. Client와 Server는 CLOSED상태
+2. Client가 Server에게 접속을 요청하는 SYN플래그 전송
+3. Server는 Client에게 확인했다는 SYN+ACK플래그 전송
+4. Client가 Server에게 확인했다는 ACK플래그 전송
+**양쪽 모두 데이터를 전송할 준비가 되었다는것을 보장**<br>
+
 - 4-way-handshake
+: 세션을 종료하기위해 수행되는절차<br>
+1. Client와 Server는 ESTABLISHED상태
+2. Client가 Server에게 연결을 끊자는 FIN플래그 전송
+3. Server는 Client에게 일단 확인 메시지 ACK플래그를 보내고 자신의 통신이 끝날때까지 기다림
+4. 통신이끝나면 Server가 Client에게 FIN플래그 전송
+5. Client가 Server에게 확인했다는 메시지 ACK플래그를 보내고 연결종료
+: 만약 클라이언트에 뒤늦게 도착하는 패킷이 있다면? 데이터 유실<br>
+이를 대비하여 클라이언트는 서버로부터 FIN플래그를 수신해도 일정시간(디폴트 240초>동안 세션을 남겨놓고 잉여패킷을 기다림(TIME-WAIT)<br>
