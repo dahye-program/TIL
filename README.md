@@ -501,7 +501,7 @@ http통신에 있어서 클라이언트와 서버가 요청하고 응답하는 �
 1. Client와 Server는 CLOSED상태
 2. Client가 Server에게 접속을 요청하는 SYN플래그 전송
 3. Server는 Client에게 확인했다는 SYN+ACK플래그 전송
-4. Client가 Server에게 확인했다는 ACK플래그 전송
+4. Client가 Server에게 확인했다는 ACK플래그 전송<br>
 **양쪽 모두 데이터를 전송할 준비가 되었다는것을 보장**<br>
 
 - 4-way-handshake
