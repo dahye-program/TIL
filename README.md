@@ -551,3 +551,9 @@ if) Alice와 Bob이 키 교환을 하려고한다.<br>
 이 때문에 ElGamal암호에서 x가 개인키, y가 공개키로 사용<br>
 실제 Diffie-Hellman알고리즘의 확장<br>
 RSA를 활용할 수 있는 곳에는 어디에나 사용할 수 있다. 키교환, 인증, 짧은 메시지의 암호화와 복호화에 사용 가능<br>
+
+## 2020.2.24
+### 1day 1commit
+- 암호학 세미나<br>
+**Diffie-Hellman**<br>
+**ELGAMAL**<br>
