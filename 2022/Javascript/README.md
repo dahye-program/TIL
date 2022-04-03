@@ -99,3 +99,53 @@ test2
 
 - 현재 실행중인 task가 있는지 없는지 확인
 - Task Queue에 task가 있는지 없는지 확인
+
+## Closure
+
+- **Closure는 두 개의 함수로 만들어진 환경으로 이루어진 특별한 객체의 한 종류**
+
+  환경: 클로저가 생성될 때 그 범위에 있던 여러 지역 변수들이 포함된 `context`
+
+  ⇒ private 속성, 메소드, public 속성, 메소드 구현 가능
+
+- **외부 함수  호출이 종료되더라도 외부 함수의 지역 변수 및 변수 스코프 객체의 체인 관계를 유지할 수 있는 구조, 외부 함수에 의해 반환되는 내부 함수를 가리키는 것**
+
+### 클로저 생성
+
+<클로저 생성 조건>
+
+1. 내부 함수가 익명 함수로 되어 외부 함수의 **반환값**으로 사용
+2. 내부 함수는 외부 함수의 실행 환경(execution environment)에서 실행
+3. 내부 함수에서 사용되는 **변수 x는 외부 함수의 변수 스코프**에 있음
+
+```jsx
+function outer() {
+  var name = `closure`;
+  function inner() {
+    console.log(name);
+  }
+  inner();
+}
+outer();
+```
+
+`outer` 함수를 실행시키는 `context` 에는 `name` 이라는 변수가 존재하지 않는 것 확인
+
+```jsx
+var name = `Warning`;
+function outer() {
+  var name = `closure`;
+  return function inner() {
+    console.log(name);
+  };
+}
+
+var callFunc = outer();
+callFunc();
+```
+
+`callFunc` 는 Closure
+
+`callFunc` 호출에 의해 `name` 값이 콘솔에 찍히는데, 찍히는 값은 `warning` 이 아니라 `closure` 라는 값으로 즉, `outer` 함수의 `context` 에 속해있는 변수를 참조하는 것
+
+`outer` 함수의 지역변수로 존재하는 `name` 변수는 `free variable(자유변수)`
