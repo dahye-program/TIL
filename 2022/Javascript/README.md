@@ -149,3 +149,83 @@ callFunc();
 `callFunc` 호출에 의해 `name` 값이 콘솔에 찍히는데, 찍히는 값은 `warning` 이 아니라 `closure` 라는 값으로 즉, `outer` 함수의 `context` 에 속해있는 변수를 참조하는 것
 
 `outer` 함수의 지역변수로 존재하는 `name` 변수는 `free variable(자유변수)`
+
+## this
+
+- JS에서 모든 함수는 실행될 때마다 함수 내부에 `this` 라는 객체가 추가됨
+- `arguments` 라는 유사 배열 객체와 함께 함수 내부로 암묵적으로 전달되는 것
+
+### 1. 객체의 메소드 호출
+
+객체의 프로퍼티가 함수일 경우 === 메소드
+
+`this` 는 함수를 실행할 때 함수를 소유하고 있는 객체(메소드를 포함하고 있는 인스턴스)를 참조, 즉 해당 메소드를 호출한 객체로 바인딩
+
+`A.B` 일 때 `B` 함수 내부에서의 `this` 는 `A` 를 가리키는 것
+
+```jsx
+var myObject = {
+  name: "foo",
+  sayName: function() {
+    console.log(this);
+  }
+};
+myObject.sayName();
+
+----------출력--------------
+Object {name: "foo", sayName: sayName()}
+```
+
+### 2. 함수 호출
+
+특정 객체의 메소드가 아닌 함수를 호출하면, 해당 함수 내부 코드에서 사용된 `this` 는 전역 객체에 바인딩됨, `A.B` 일 때 `A` 가 전역 객체가 되므로 `B` 함수 내부에서의 `this` 는 당연히 전역 객체에 바인딩 됨
+
+```jsx
+var value = 100;
+var myObj = {
+  value: 1,
+  func1: function() {
+    console.log(`func1's this.value: ${this.value}`);
+
+    var func2 = function() {
+      console.log(`func2's this.value ${this.value}`);
+    };
+    func2();
+  }
+};
+
+myObj.func1();
+
+----------출력--------------
+func1's this.value: 1
+func2's this.value: 100
+```
+
+`func1` 에서의 `this` 는 `1. 객체의 메소드 호출` 과 같음
+
+⇒ `myObj` 가 `this` 로 바인딩되고 `myObj` 의 `value` 값 1이 출력됨
+
+`func2` 는 함수 호출의 경우로, `A.B` 구조에서 `A` 가 없기 때문에 함수 내부에서 `this` 가 전역 객체를 참조하게 되고 `value` 값 100이 출력됨
+
+### 3. 생성자 함수를 통해 객체 생성
+
+`new` 키워드를 통해 생성자 함수를 호출할 때 호출된 함수 내부에서의 `this` 는 객체 자신을 가리킴, 생성자 함수가 동작하는 방식을 통해 이해할 수 있음
+
+`new` 키워드를 통해 함수를 생성자로 호출하게 되면 빈 객체가 생성되고 `this` 가 바인딩 됨
+
+이 객체는 함수를 통해 생성된 객체로, 자신의 부모인 프로토타입 객체와 연결되어있음
+
+`return` 문이 명시되어있지 않은 경우 `this` 로 바인딩 된 새로 생성한 객체가 리턴됨
+
+```jsx
+var Person = function(name) {
+  console.log(this);
+  this.name = name;
+};
+
+var foo = new Person("foo"); // Person
+console.log(foo.name);
+
+----------출력--------------
+foo
+```
