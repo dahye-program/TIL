@@ -326,3 +326,53 @@ async function makeRequest() {
     }
 }
 ```
+
+## Arrow Function
+
+- 기존 `function` 표현 방식보다 간결하게 함수 표현 가능
+- 항상 익명
+- 자신의 `this` , `arguments` , `super` , `[new.target](http://new.target)` 을 바인딩하지 않음 ⇒ 생성자로 사용 X
+- 화살표 함수 도입 영향: 짧은 함수, 상위 스코프 `this`
+
+### 짧은 함수
+
+기존의 function 생략 ⇒로 대체 표현
+
+```jsx
+var materials = [
+  'Hydrogen',
+  'Helium',
+  'Lithium',
+  'Beryllium'
+];
+
+materials.map(function(material) { 
+  return material.length; 
+}); // [8, 6, 7, 9]
+
+materials.map((material) => {
+  return material.length;
+}); // [8, 6, 7, 9]
+
+materials.map(({length}) => length); // [8, 6, 7, 9]
+```
+
+### 상위 스코프 `this`
+
+일반 함수에서 `this` 는 자기 자신을 정의
+
+화살표 함수의 `this` 는 Person의 `this` 와 동일한 값
+
+`setInterval` 로 전달된 `this` 는 Person의 `this` 를 가리키며 Person객체의 age에 접근
+
+```jsx
+function Person(){
+  this.age = 0;
+
+  setInterval(() => {
+    this.age++; // |this|는 person 객체를 참조
+  }, 1000);
+}
+
+var p = new Person();
+```
