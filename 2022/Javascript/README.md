@@ -272,3 +272,57 @@ success
 - `pending`(대기) 상태: promise를 수행 중인 상태(fulfilled or reject가 되기 전)
 - `fulfilled`(이행) 상태: promise를 성공적으로 완료한 상태
 - `rejected`(거부) 상태: 실패한 상태
+
+## async/await
+
+- 비동기 코드를 작성하는 새로운 방법
+- `promise` 기반으로 `promise` 로 만족하지 못하고 더 훌륭한 방법을 고안해낸 것
+- 사용법이 간단하고 이해하기 쉬움
+- 함수 키워드 앞에 `async` 를 붙여주면 되고 함수 내부의 `promise` 를 반환하는 비동기 처리 함수 앞에 `await` 를 붙여주면 됨 (`promise` 객체를 반환하지만 `await` 가 반환 객체를 까주어 `try/catch` 를 사용할 수 있게함
+- `promise` 보다 겉보기에 깔끔함
+- ES8
+- `try` , `catch` 로 예외 처리
+
+`promise` 로 구현
+
+```jsx
+function makeRequest() {
+    return getData()
+        .then(data => {
+            if(data && data.needMoreRequest) {
+                return makeMoreRequest(data)
+                  .then(moreData => {
+                      console.log(moreData);
+                      return moreData;
+                  }).catch((error) => {
+                      console.log('Error while makeMoreRequest', error);
+                  });
+            } else {
+                console.log(data);
+                return data;
+            }
+        }).catch((error) => {
+          console.log('Error while getData', error);
+        });
+}
+```
+
+`async/await` 로 구현
+
+```jsx
+async function makeRequest() { 
+    try {
+      const data = await getData();
+      if(data && data.needMoreRequest) {
+          const moreData = await makeMoreRequest(data);
+          console.log(moreData);
+          return moreData;
+      } else {
+          console.log(data);
+          return data;
+      }
+    } catch (error) {
+        console.log('Error while getData', error);
+    }
+}
+```
