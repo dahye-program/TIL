@@ -229,3 +229,46 @@ console.log(foo.name);
 ----------출력--------------
 foo
 ```
+
+## Promise
+
+- JS에서는 대부분의 작업들이 비동기로 이루어짐
+- 콜백함수로 처리하면 됐었지만, 프론트엔드의 규모가 커지면서 코드의 복잡도가 높아지는 상황이 발생 ⇒ 콜백이 중첩되는 경우(콜백 지옥)
+- 이를 해결할 방안으로 등장한 `Promise`
+- **비동기 작업들을 순차적으로 진행, 병렬로 진행하는 등의 컨트롤이 수월**해짐
+- **예외처리에 대한 구조가 존재**하기 때문에 **오류 처리 등에 대하여 보다 가시적 관리 가능**
+- ES6 정식 포함됨
+- `promise` 객체를 반환
+- `.then` , `.catch` 로 예외처리
+
+```jsx
+// Promise 선언
+var _promise = function(param){
+	return new Promise(function (resolve, reject){
+		window.setTimeout(function (){
+			if(param){
+				resolve('success');
+			}else{
+				reject(Error('failed'));
+			}
+		},3000);
+	});
+};
+
+// Promise 실행
+_promise(true)
+	.then(function (text){
+			console.log(text);
+	}, function (error){
+			console.error(error);
+});
+
+----------출력--------------
+success
+```
+
+`promise` 상태
+
+- `pending`(대기) 상태: promise를 수행 중인 상태(fulfilled or reject가 되기 전)
+- `fulfilled`(이행) 상태: promise를 성공적으로 완료한 상태
+- `rejected`(거부) 상태: 실패한 상태
