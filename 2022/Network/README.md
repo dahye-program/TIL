@@ -208,3 +208,155 @@ ex) 10대의 컴퓨터가 서로 연결되기 위해서는 9개의 플러그가 
 - **전이중**: 전송이 양방향으로 동시에 일어날 수 있음을 의미
 - **점대점**: 각 연결이 정확히 2개의 종단점을 가지고 있음을 의미
 - 멀티캐스팅이나 브로드캐스팅을 지원하지 않음
+
+## www.google.com을 검색하면?
+
+### 1. www.google.com을 브라우저 주소창에 입력한다.
+
+### 2. 브라우저는 캐싱된 DNS 기록들을 통해 www.google.com에 대응되는 IP 주소가 있는지 확인한다.
+
+`DNS(Domain Name System)` : URL들의 이름과 IP주소를 저장하고있는 데이터베이스
+
+인터넷에 있는 모든 URL들은 고유의 IP주소가 지정되어있음
+
+→ 이 IP주소를 통해 해당 웹사이트를 호스팅하고있는 서버 컴퓨터에 접근 가능
+
+즉, `DNS` 는 전화번호부와 비슷한 역할을 하는데, 웹사이트의 이름들과 웹사이트에 접근하기 위해 필요한 IP주소를 저장하고있음
+
+ex) 구글의 경우 구글을 사용하는 사용자가 매우 많기 때문에 구글의 서버 IP주소는 여러개
+
+`**DNS`의 가장 큰 목적은 사람들에게 편리함을 주기 위함**
+
+→ 숫자로 된 IP주소를 작성해도 원하는 웹사이트에 접속할 수 있지만, 매번 랜덤해보이는 숫자들을 검색하는 것은 매우 복잡한 일
+
+→ 사람은 네이버, 다음, 구글처럼 이름을 외우는 것에 더 친숙하기때문
+
+→ `DNS` 는 사람들이 웹사이트 주소에 쉽게 접속할 수 있게 매핑해주는 역할
+
+### www.google.com을 검색하면 브라우저는 DNS기록을 4가지 캐시에서 확인
+
+1. **브라우저 캐시**
+  - 브라우저는 일정기간동안(유저가 이전에 설정한)의 `DNS` 기록들을 저장하고있음
+  - `DNS query`가 이 곳에서 가장 먼저 실행
+2. **OS 캐시**
+  - 브라우저 캐시에 웹사이트 이름의 IP주소가 발견되지 않았다면, 브라우저는 `systemcall`을 통해서 OS가 저장하고 있는 `DNS` 기록들의 캐시에 접근
+3. **router 캐시**
+  - 컴퓨터에 `DNS` 기록을 찾지 못하면 브라우저는 `DNS`기록을 캐싱 하고 있는 `router`와 통신해서 찾으려고 함
+4. **ISP 캐시**
+  - 마지막으로 ISP 캐시 확인
+  - ISP는 `DNS`서버를 구축하고있고 브라우저가 마지막으로 `DNS`기록이 있기를 바라며 접근
+
+### 3. 요청한 URL이 캐시에 없으면, ISP의 DNS서버가 www.google.com을 호스팅하고 있는 서버의 IP주소를 찾기 위해 DNS query를 날린다.
+
+[www.google.com](http://www.google.com) 에 접속하기 위해서는 IP주소를 반드시 알아야 함
+
+`DNS query` 의 목적은 여러 다른 `DNS` 서버들을 검색해서 해당 사이트의 IP주소를 찾는 것
+
+이러한 검색 ⇒ `recursive search`
+
+IP주소를 찾을때까지 `DNS` 서버에서 다른 `DNS` 서버를 오가면서 반복적으로 검색하던지 찾지 못해 에러가 발생할 때까지 검색을 진행
+
+이 상황에서, `ISP`의 `DNS` 서버를 `DNS recursor` 라고 부르고 인터넷을 통해 다른 `DNS` 서버들에게 물어 도메인 이름의 올바른 IP주소를 찾는데 책임을 갖고 있음
+
+다른 `DNS` 서버들은 `name server`라고 불림 (웹사이트 도메인 이름의 구조에 기반하여 검색하기 때문)
+
+도메인 이름 구조에 기반해서 검색한다고 하면 이해하기 어려워보이지만 원리는 매우 간단
+
+[도메인 이름들의 구조 사진]
+
+
+우리가 마주하는 웹사이트 URL들은 `third-level domain` , `second-level domain` , `top-level domain` 을 가지고 있음, 각 레벨별로 자신들만의 `name` 서버가 있고 여기서 `DNS look up` 프로세스 중에 쿼리가 진행됨
+
+[www.google.com](http://www.google.com) 를 검색하면 먼저 `DNS recursor` 가 `root name server`에 연락
+
+`root name` 서버는 `.com` 도메인 `name server`로 리다이렉트
+
+`.com` `name server` 는 `[google.com](http://google.com)` `name server` 로 리다이렉트
+
+`[google.com](http://google.com)` `name server` 는 `DNS` 기록에서 www.google.com에 매칭되는 IP주소를 찾아 `DNS recursor`로 보냄
+
+⇒ 이 모든 요청들은 작은 데이터 패킷들을 통해 보내짐
+
+패킷 안에는 보내는 요청의 내용과 `DNS recursor` 의 IP주소가 포함되어있음
+
+이 패킷들은 원하는 `DNS` 기록을 가진 `DNS` 서버에 도달할 때까지 클라이언트와 서버를 여러번 오감
+
+패킷들이 움직이는 것도 `routing table` 에 기반
+
+`routing table` 을 통해 어떤 길로 가야 가장 빠른지 확인 가능
+
+만약 패킷이 도중에 `loss` 되면 `request fail error` 가 발생
+
+### 4. 브라우저가 서버와 TCP 연결한다.
+
+브라우저가 올바른 IP주소를 받게되면 서버와 `Connection` 을 빌드
+
+브라우저는 인터넷 프로토콜을 사용하여 서버와 연결됨
+
+웹사이트의 HTTP 요청의 경우 **일반적으로 `TCP` 사용**
+
+클라이언트와 서버간 데이터 패킷들이 오가려면 `TCP Connection` 이 되어야 함
+
+`TCP/IP 3-way-handshake` 라는 프로세스를 통해 클라이언트와 서버 간의 `connection`
+
+1. 클라이언트 머신이 `SYN 패킷`을 서버에 보내고 `connection`을 열어달라고 요청
+2. 서버가 새로운 `connection`을 시작할 수 있는 포트가 있다면 `SYN/ACK 패킷`으로 수락
+3. 클라이언트는 `SYN/ACK 패킷`을 서버로부터 받으면 서버에게 `ACK 패킷` 전송
+
+이 과정이 끝나면 `TCP connection`이 완성되는 것이다.
+
+### 5. 브라우저가 웹서버에 HTTP 요청한다.
+
+`TCP` 로 연결되었다면, 데이터 전송
+
+클라이언트의 브라우저는 `GET` 요청을 통해 서버에게 [www.google.com](http://www.google.com) 웹 페이지를 요구
+
+경우에 따라 `POST` 요청을 사용할 수 있음
+
+- browser identification(User-Agent 헤더)
+- 받아들일 요청의 종류(Accept 헤더)
+- 추갖거인 요청을 위해 TCP connection을 유지를 요청하는 connection 헤더
+- 브라우저에서 얻은 쿠키 정보
+- 기타 등등
+
+### 6. 서버가 요청을 처리하고 response를 생성한다.
+
+서버는 웹서버를 가지고 있음
+
+이들은 브라우저로부터 요청받고 `request handler` 에게 요청을 전달해서 요청을 읽고 response를 생성
+
+`Request handler` 는 ASP.NET, PHP, Ruby 등으로 작성된 프로그램 의미
+
+이 `Request handler` 는 요청과 요청의 헤더, 쿠키를 읽어 요청이 무엇인지 파악하고 필요하다면 서버에 정보 업데이트
+
+response를 특정 포맷(JSON, XML, HTML)으로 작성
+
+### 7. 서버가 HTTP response를 보낸다.
+
+서버의 response에는 요청한 웹페이지, status code, compression type(Content-Encoding) - 어떻게 인코딩 되어 있는지, 어떻게 페이지를 캐싱할지(Cache-Control), 설정할 쿠키가 있다면 쿠키, 개인정보 등이 포함된다.
+
+샘플 HTTP 서버 response는 다음과 같다.
+
+
+response의 첫줄은 `status code`를 나타낸다. 
+`Status code`란 현재 response의 상태를 의미하고 총 5가지의 종류가 있다:
+
+- 1xx은 정보만 담긴 메세지라는 것을 의미
+- 2xx response가 성공적이라는 것을 의미
+- 3xx 클라이언트를 다른 URL로 리다이렉트함을 의미
+- 4xx 클라이언트 측에서 에러가 발생했음을 의미
+- 5xx 서버 측에서 에러가 발생했음을 의미
+
+### 8. 브라우저가 HTML Content를 보여준다.
+
+브라우저는 HTML content를 단계적으로 보여준다.
+
+처음에는 HTML의 스켈레톤(기본 틀)을 렌더링한다.
+
+그 다음에는 `HTML tag`들을 체크하고 나서 추가적으로 필요한 웹페이지 요소들을(이미지, CSS 스타일시트, Javascript 파일, 등) GET으로 요청한다.
+
+이 정적인 파일들은 브라우저에 의해 캐싱이 되서 나중에 해당 페이지를 방문할 때 다시 서버로부터 불러와지지 않도록 한다.
+
+그 다음 www.google.com의 모습이 보이게 된다.
+
+www.google.com을 검색하고 웹페이지가 뜰 때까지 엄청 많은 일들이 일어나지만, 이 모든 일들이 1초도 되지 않아서 완료가 된다.
