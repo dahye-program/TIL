@@ -88,3 +88,38 @@ props를 자식에서 부모에게 전달할 수 있는가?
 ### state
 
 - 컴포넌트 내부에서 바뀌는 값 의미
+
+### state의 불변성 유지
+
+- 객체는 실제 데이터 값이 아닌 참조 값을 가짐
+- 복사하여 동일한 참조 값을 가지는 객체 중 하나라도 변경되면, 모든 객체의 내부 값이 변경됨
+- `...`연산자를 통해 복사할 경우 A와 B가 같은 값을 가지더라도 새로운 객체를 할당 받은 상태가 되고 A와 B 내부의 값이 같더라도(같아 보이더라도) 참조하는 객체가 다르기 때문에 무결성 유지 가능
+- (이미 복사를 한 프린트 물은 A 인쇄물에 낙서를 하더라도 B 인쇄물에 영향을 미치지 않음)
+- 리액트에서는 데이터를 저장할 때 객체 형식 또는 배열 형식의 데이터를 많이 다루게 되는데 원본 배열이 변경되는 경우 의도한 동작과 다르게 동작할 수 있고 어떤 함수에 의해 부수효과(side effect)가 발생했는지 찾기 어려움
+
+```jsx
+let A = {
+  name: "dahye",
+  age: 25,
+  job: "student",
+};
+
+B = { ...A };
+
+console.log("A", A);
+console.log("B", B);
+/*
+A { name: 'dahye', age: 25, job: 'student' }
+B { name: 'dahye', age: 25, job: 'student' }
+*/
+
+B = { ...A, job: "frontend developer" };
+
+console.log("A", A);
+console.log("B", B);
+
+/*
+A { name: 'dahye', age: 25, job: 'student' }
+B { name: 'dahye', age: 25, job: 'frontend developer' }
+*/
+```
