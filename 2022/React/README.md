@@ -123,3 +123,29 @@ A { name: 'dahye', age: 25, job: 'student' }
 B { name: 'dahye', age: 25, job: 'frontend developer' }
 */
 ```
+
+## Basic
+
+### ReactDOM.render
+
+- 컴포넌트를 페이지에 렌더링
+- `react-dom` 모듈 불러와 사용
+- 첫번째 파라미터에는 페이지에 렌더링할 내용을 JSX 형태로 작성
+- 두번째 파라미터에는 해당 JSX를 렌더링할 `document` 내부 요소 설정
+
+### React.StrictMode
+
+- 리액트 프로젝트에서 리액트의 레거시 기능들을 사용하지 못하게 함
+- 문자열 ref, componentWillMount 등 나중에는 완전히 사라질 옛날 기능 사용 시 경고 출력
+
+```jsx
+import ReactDOM from 'react-dom';
+import App from './App';
+
+ReactDOM.render(
+	<React.StrictMode>
+		<App />
+	<React.StrictMode>,
+	document.getElementById('root');
+);
+```
