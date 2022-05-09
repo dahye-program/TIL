@@ -85,6 +85,52 @@ props를 자식에서 부모에게 전달할 수 있는가?
 - 자식은 props를 사용해서 부모에게 데이터를 건네줄 수 없다.
   따라서 부모가 함수를 넣어 props로 자식에게 넘겨주면, 자식이 데이터를 파라미터로 넣어 호출하는 방식으로 동작한다. 즉, 부모가 props로 함수를 넣어주면 자식이 그 함수를 이용해 값을 건네주는 방식이다.
 
+### defaultProps
+
+```jsx
+const MyComponent = props => {
+  return <div> 안녕하세요 제 이름은 {props.name}입니다. </div>;
+};
+
+MyComponent.defaultProps = {
+  name: '기본이름';
+}
+```
+
+- props값을 따로 지정하지 않았을 때 보여줄 기본값 설정
+
+### children
+
+- 태그 사이의 내용 출력 `props.children`
+
+### 비구조화 할당 문법 통해 props 내부 값 추출
+
+```jsx
+const MyComponent = (props) => {
+  const { name, children } = props;
+  return (
+    <div>
+      안녕하세요 제 이름은 {name}입니다 children 값은 {children}입니다
+    </div>
+  );
+};
+```
+
+- 객체에서 값을 추출하는 문법 : 비구조화 할당(구조 분해 문법)
+
+```jsx
+const MyComponent = ({ name, children }) => {
+  const { name, children } = props;
+  return (
+    <div>
+      안녕하세요 제 이름은 {name}입니다 children 값은 {children}입니다
+    </div>
+  );
+};
+```
+
+- 함수의 파라미터 부분에서도 사용 가능
+
 ### state
 
 - 컴포넌트 내부에서 바뀌는 값 의미
@@ -167,6 +213,7 @@ blackDog.bark();
 ```
 
 - '검둥이: 멍멍' 출력
+- 일반 함수에서 this는 자신이 종속된 객체를 가리킴
 
 ```jsx
 function WhiteDog(){
@@ -181,3 +228,4 @@ function WhiteDog(){
 ```
 
 - '흰둥이: 멍멍' 출력
+- 화살표 함수에서 this는 자신이 종속된 인스턴스를 가리킴
