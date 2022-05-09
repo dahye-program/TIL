@@ -149,3 +149,35 @@ ReactDOM.render(
 	document.getElementById('root');
 );
 ```
+
+### function 과 arrow function 에서의 this
+
+```jsx
+function BlackDog() {
+  this.name = "흰둥이";
+  return {
+    name: "검둥이",
+    bark: function () {
+      console.log(this.name + ": 멍멍!");
+    },
+  };
+}
+const blackDog = new BlackDog();
+blackDog.bark();
+```
+
+- '검둥이: 멍멍' 출력
+
+```jsx
+function WhiteDog(){
+  this.name = '흰둥이';
+  return{
+    name: '검둥이';
+    bark: () => {
+      console.log(this.name + ': 멍멍!');
+    }
+  }
+}
+```
+
+- '흰둥이: 멍멍' 출력
