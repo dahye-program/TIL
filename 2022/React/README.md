@@ -230,7 +230,7 @@ const MyComponent = ({ name, children }) => {
 
 - 함수의 파라미터 부분에서도 사용 가능
 
-### props의 propTypes
+### props의 propTypes, isRequired
 
 ```jsx
 import PropTypes from 'prop-types';
@@ -242,6 +242,20 @@ MyComponent.defaultProps = {
   name: '기본이름';
 }
 MyComponent.propTypes = {
-  name: PropTypes.string
+  name: PropTypes.string,
+  Number: PropTypes.number.isRequired
 };
+```
+
+### 배열 비구조화 할당
+
+```jsx
+const array = [1, 2];
+const one = array[0];
+const two = array[1];
+```
+
+```jsx
+const array = [1, 2];
+const [one, two] = array;
 ```
