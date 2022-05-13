@@ -28,3 +28,38 @@
 - 특정 값이 변경될 때만 호출
 - 두 번째 파라미터로 전달되는 배열 안에 검사하고 싶은 값 삽입
 - `useEffect(()=>{console.log(name);}, [name]);
+
+### useReducer
+
+- useState보다 더 다양한 컴포넌트 상황에 따라 다양한 상태를 다른 값으로 업데이트 할 때 사용
+- 리듀서는 현재 상태와 업데이트를 위해 필요한 정보를 담은 액션(action)값을 전달받아 새로운 상태를 반환하는 함수
+- 리듀서 함수에서 새로운 상태를 만들 때는 반드시 불변성을 지켜주어야 함
+- 리덕스에서 사용하는 액션 객체에는 `type` 필드가 꼭 있어야 하지만, useReducer에서 사용하는 액션 객체는 반드시 `type` 을 지니고 있을 필요가 없고 객체가 아니라 문자열, 숫자도 가능
+- useReducer의 첫 번째 파라미터에는 리듀서 함수, 두 번째 파라미터에는 해당 리듀서의 기본값 삽입
+- 해당 Hook은 `state` 값과 `dispatch` 함수를 받아오는데 이 때, `state` 는 현재 가리키고 있는 상태, `dispatch` 는 액션을 발생시키는 함수 ⇒ `dispatch(action)` 과 같은 형태
+- 가장 큰 장점은 컴포넌트 업데이트 로직을 컴포넌트 바깥으로 빼낼 수 있다는 것
+  ```jsx
+  import { useReducer } from "react";
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case "INCREMENT":
+        return { value: state.value + 1 };
+      case "DECREMENT":
+        return { value: state.value - 1 };
+      default:
+        return state;
+    }
+  }
+
+  const Counter = () => {
+    const [state, dispatch] = useReducer(reducer, { value: 0 });
+    return (
+      <div>
+        <p>현재 카운터 값은 {state.value}</p>
+        <button onClick={() => dispatch({ type: "INCREMENT" })}>+1</button>
+        <button onClick={() => dispatch({ type: "DECREMENT" })}>-1</button>
+      </div>
+    );
+  };
+  ```
