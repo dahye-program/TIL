@@ -38,6 +38,7 @@
 - useReducer의 첫 번째 파라미터에는 리듀서 함수, 두 번째 파라미터에는 해당 리듀서의 기본값 삽입
 - 해당 Hook은 `state` 값과 `dispatch` 함수를 받아오는데 이 때, `state` 는 현재 가리키고 있는 상태, `dispatch` 는 액션을 발생시키는 함수 ⇒ `dispatch(action)` 과 같은 형태
 - 가장 큰 장점은 컴포넌트 업데이트 로직을 컴포넌트 바깥으로 빼낼 수 있다는 것
+
   ```jsx
   import { useReducer } from "react";
 
@@ -61,5 +62,22 @@
         <button onClick={() => dispatch({ type: "DECREMENT" })}>-1</button>
       </div>
     );
+  };
+  ```
+
+### useMemo
+
+- 함수 컴포넌트 내부에서 발생하는 연산 최적화
+- 렌더링 과정에서 특정 값이 바뀌었을 때만 연산 실행, 원하는 값이 바뀌지 않았다면 이전에 연산했던 결과를 다시 사용하는 방식
+
+  ```jsx
+  const getAverage = (numbers) => {
+    // 평균값 계산
+  };
+
+  const Average = () => {
+    const [list, setList] = useState([]);
+    const avg = useMemo(() => getAverage(list), [list]);
+    // list의 값 변화가 있을 때만 getAverage 함수 호출
   };
   ```
