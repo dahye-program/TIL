@@ -81,3 +81,41 @@
     // list의 값 변화가 있을 때만 getAverage 함수 호출
   };
   ```
+
+  ### useCallback
+
+- `useMemo` 와 비슷
+- 렌더링 성능 최적화
+- 첫 번째 파라미터에 생성하고 싶은 함수, 두 번째 파라미터에 배열 삽입
+- 두 번째 파라미터에 삽입되는 배열은 어떤 값이 바뀌었을 때 함수를 새로 생성해야 하는지 명시
+- 비어있는 배열을 넣게 되면 컴포넌트가 렌더링될 때 만들었던 함수를 계속해서 재사용
+- 어떤 배열을 넣으면 해당 배열의 변화가 있을 때 새로 만들어진 함수 사용
+- 함수 내부에서 상태 값에 의존해야 할 때는 그 값을 두 번째 파라미터 안에 포함해줘야 함
+
+  ```jsx
+  const Average = () => {
+    const [list, setList] = useState([]);
+    const [number, setNumber] = useState('');
+
+    const onChange = useCallback(e=>{
+      setNumber(e.target.value);
+    }, []); // 컴포넌트가 처음 렌더링될 때만 함수 생성
+
+    const onInsert = useCallback(e=>{
+      const nextList = list.concat(parseInt(number));
+      setList(nextList);
+      setNumber('');
+    }, [number, list]); // number 또는 list가 바뀌었을 때만 함수 생성
+
+    return(
+      <div>
+        <input value={number} onChange={onChange} />
+        <button onClick={onInsert}등록</button>
+        <ul>
+          {list.map((value, index) => (
+            <li key={index}>{value}</li>
+          ))}
+        </ul>
+    );
+  };
+  ```
