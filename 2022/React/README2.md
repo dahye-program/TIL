@@ -82,7 +82,7 @@
   };
   ```
 
-  ### useCallback
+### useCallback
 
 - `useMemo` 와 비슷
 - 렌더링 성능 최적화
@@ -111,6 +111,41 @@
       <div>
         <input value={number} onChange={onChange} />
         <button onClick={onInsert}등록</button>
+        <ul>
+          {list.map((value, index) => (
+            <li key={index}>{value}</li>
+          ))}
+        </ul>
+    );
+  };
+  ```
+
+### useRef
+
+- 함수 컴포넌트에서 ref를 쉽게 사용할 수 있도록 함
+- 렌더링과 상관없이
+
+  ```jsx
+  const Average = () => {
+    const [list, setList] = useState([]);
+    const [number, setNumber] = useState('');
+    const inputEl = useRef(null);
+
+    const onChange = useCallback(e=>{
+      setNumber(e.target.value);
+    }, []); // 컴포넌트가 처음 렌더링될 때만 함수 생성
+
+    const onInsert = useCallback(e=>{
+      const nextList = list.concat(parseInt(number));
+      setList(nextList);
+      setNumber('');
+      inputEl.current.focus();
+    }, [number, list]); // number 또는 list가 바뀌었을 때만 함수 생성
+
+    return(
+      <div>
+        <input value={number} onChange={onChange} ref={inputEl} />
+        <button onClick={onInsert} 등록</button>
         <ul>
           {list.map((value, index) => (
             <li key={index}>{value}</li>
