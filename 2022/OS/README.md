@@ -95,3 +95,14 @@ time sharing system에서는 장기 스케줄러가 없음 → 곧바로 메모�
 
 suspended(stopped) : 외부적인 이유로 프로세스의 수행이 정지된 상태, 메모리에서 내려간 상태. 프로세스 전부 디스크로 swap out 됨.
 blocked 상태는 다른 I/O 작업을 기다리는 상태이기 때문에 스스로 ready state로 돌아갈 수 있지만 suspended(stopped) 상태는 외부적인 이유이기 때문에 스스로 돌아갈 수 없음
+
+## Sync, Async
+
+### Sync
+
+- 메소드를 실행시킴과 동시에 반환값이 기대되는 경우
+- 실행되었을 때 값이 반환되기 전까지 blocking 되어있음
+
+### Async
+
+- blocking 되지 않고 event queue에 넣거나 background thread에게 해당 task를 위임하고 다음 코드를 실행하여 기대되는 값이 바로 반환되지 않음
