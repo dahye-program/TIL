@@ -18,7 +18,6 @@
 ## Javascript Engine
 
 > **Call Stack, Task Queue(Event queue), Heap 영역으로 나뉨**
->
 
 **Event Loop**가 Task Queue에 들어가는 task들을 관리
 
@@ -29,7 +28,6 @@
   ⇒ Run to Completion(하나의 함수가 실행되면 해당 함수의 실행이 끝날 때까지 다른 어떤 task도 수행될 수 없음)
 
   ⇒ 요청이 들어올때마다 해당 요청을 순차적으로 Call Stack에 담아 처리(push/pop)
-
 
 ### Task Queue(Event Queue)
 
@@ -49,8 +47,8 @@ first
 ```
 
 - JS에서 비동기로 호출되는 함수들은 Call Stack에 쌓이지 않고 Task Queue에 enqueue됨
-    - 이벤트에 의해 실행되는 함수(핸들러)
-    - JS 엔진이 아닌 Web API영역에 따로 정의되어있는 함수
+  - 이벤트에 의해 실행되는 함수(핸들러)
+  - JS 엔진이 아닌 Web API영역에 따로 정의되어있는 함수
 
 Ex)
 
@@ -71,7 +69,7 @@ function test3(){
 	console.log('test3');
 }
 
-test1(); 
+test1();
 
 ----------출력--------------
 test1
@@ -108,7 +106,7 @@ test2
 
   ⇒ private 속성, 메소드, public 속성, 메소드 구현 가능
 
-- **외부 함수  호출이 종료되더라도 외부 함수의 지역 변수 및 변수 스코프 객체의 체인 관계를 유지할 수 있는 구조, 외부 함수에 의해 반환되는 내부 함수를 가리키는 것**
+- **외부 함수 호출이 종료되더라도 외부 함수의 지역 변수 및 변수 스코프 객체의 체인 관계를 유지할 수 있는 구조, 외부 함수에 의해 반환되는 내부 함수를 가리키는 것**
 
 ### 클로저 생성
 
@@ -287,43 +285,45 @@ success
 
 ```jsx
 function makeRequest() {
-    return getData()
-        .then(data => {
-            if(data && data.needMoreRequest) {
-                return makeMoreRequest(data)
-                  .then(moreData => {
-                      console.log(moreData);
-                      return moreData;
-                  }).catch((error) => {
-                      console.log('Error while makeMoreRequest', error);
-                  });
-            } else {
-                console.log(data);
-                return data;
-            }
-        }).catch((error) => {
-          console.log('Error while getData', error);
-        });
+  return getData()
+    .then((data) => {
+      if (data && data.needMoreRequest) {
+        return makeMoreRequest(data)
+          .then((moreData) => {
+            console.log(moreData);
+            return moreData;
+          })
+          .catch((error) => {
+            console.log("Error while makeMoreRequest", error);
+          });
+      } else {
+        console.log(data);
+        return data;
+      }
+    })
+    .catch((error) => {
+      console.log("Error while getData", error);
+    });
 }
 ```
 
 `async/await` 로 구현
 
 ```jsx
-async function makeRequest() { 
-    try {
-      const data = await getData();
-      if(data && data.needMoreRequest) {
-          const moreData = await makeMoreRequest(data);
-          console.log(moreData);
-          return moreData;
-      } else {
-          console.log(data);
-          return data;
-      }
-    } catch (error) {
-        console.log('Error while getData', error);
+async function makeRequest() {
+  try {
+    const data = await getData();
+    if (data && data.needMoreRequest) {
+      const moreData = await makeMoreRequest(data);
+      console.log(moreData);
+      return moreData;
+    } else {
+      console.log(data);
+      return data;
     }
+  } catch (error) {
+    console.log("Error while getData", error);
+  }
 }
 ```
 
@@ -339,22 +339,17 @@ async function makeRequest() {
 기존의 function 생략 ⇒로 대체 표현
 
 ```jsx
-var materials = [
-  'Hydrogen',
-  'Helium',
-  'Lithium',
-  'Beryllium'
-];
+var materials = ["Hydrogen", "Helium", "Lithium", "Beryllium"];
 
-materials.map(function(material) { 
-  return material.length; 
+materials.map(function (material) {
+  return material.length;
 }); // [8, 6, 7, 9]
 
 materials.map((material) => {
   return material.length;
 }); // [8, 6, 7, 9]
 
-materials.map(({length}) => length); // [8, 6, 7, 9]
+materials.map(({ length }) => length); // [8, 6, 7, 9]
 ```
 
 ### 상위 스코프 `this`
@@ -366,7 +361,7 @@ materials.map(({length}) => length); // [8, 6, 7, 9]
 `setInterval` 로 전달된 `this` 는 Person의 `this` 를 가리키며 Person객체의 age에 접근
 
 ```jsx
-function Person(){
+function Person() {
   this.age = 0;
 
   setInterval(() => {
@@ -376,3 +371,26 @@ function Person(){
 
 var p = new Person();
 ```
+
+## undefined과 null의 차이
+
+### undefined과 null의 공통점
+
+- 타입명의 값이 유일
+- undefined 타입의 값은 undefined가 유일
+- null 타입의 값은 null이 유일
+
+### undefined
+
+- 원시자료형 undefined로 분류됨
+- 아무것도 할당받지 않은 상태를 의미
+- var 키워드로 선언한 변수는 암묵적으로 undefined로 초기화 됨
+- 변수 선언에 의해 확보된 메모리 공간을 처음 할당이 이루어질 때까지 빈 상태로 내버려두지 않고 js엔진이 undefined로 초기화함
+- 따라서 변수를 선언한 이후 값을 할당하지 않은 변수를 참조하면 undefined가 반환됨
+- 변수를 참조했을 때 undefined가 반환된다면 선언 이후 값이 할당되지 않은 , 초기화되지 않은 변수인 것
+- 개발자가 의도적으로 할당하기 위한 값이 아니라 js엔진이 변수를 초기화할 때 사용하는 값
+  ```jsx
+  var a;
+  console.log(a);
+  console.log(typeof a);
+  ```
