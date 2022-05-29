@@ -50,3 +50,48 @@ Angular JS, Backbone JS같은 Single Page를 생성하기 쉬운 JS 프레임워
 
 - 사용자와 인터랙션 하는 부분에서 매번 서버에 request 요청을 통해 해결해야함
 - DOM 조작에서도 요청하는 과정이나 엄청난 탐색 비용으로 애를 먹음
+
+## axios 와 fetch
+
+### axios
+
+- Promise based HTTP client for the browser and node.js
+- node.js와 브라우저를 위한 HTTP 통신 라이브러리
+- 비동기로 HTTP 통신을 가능하게 해주며 return 을 Promise 객체로 해주기 때문에 response 데이터를 다루기도 쉬움
+
+**axios의 post method**
+
+```jsx
+axios({
+  method: "post",
+  url: "/",
+  data: {
+    name: "dahye",
+    number: "1234",
+  },
+});
+```
+
+### fetch
+
+- ES6부터 Javascript의 내장 라이브러리
+- Promise 기반
+- 내장 라이브러리라는 장점으로 편리
+
+**fetch의 post method**
+
+```jsx
+const url = 'url주소'
+const option = {
+	method: 'POST',
+	header:{
+		'Accept': 'application/json',
+		'Content-Type': 'application/json';
+	},
+	body:JSON.stringfy({
+		name: 'dahye',
+		age: '24'
+	})}
+fetch(url, options)
+	.then(reponse => console.log(response))
+```
