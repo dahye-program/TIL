@@ -1,5 +1,7 @@
 # FrontEnd
+
 ## HTML
+
 ### DOCTYPE
 
 - HTML이 어떤 버전으로 작성되었는지 미리 선언
@@ -9,13 +11,15 @@
 ### meta 태그
 
 - HTML 문서가 어떤 내용을 담고 있고, 키워드는 무엇이며, 누가 만들었는지에 대한 정보를 담고 있는 태그
+- 브라우저와 검색 엔진의 키워드(keyword) 등에 사용
+- meta tag에 다양한 정의를 통해 웹 사이트에 다양한 정의와 설명 가능
 
 ### meta 태그의 요소
 
 **charset**
 
 ```html
-<meta charset = "utf-8" />
+<meta charset="utf-8" />
 ```
 
 - 문서에서 허용하는 문자 집합에 대해 간단히 표시
@@ -40,7 +44,6 @@ name
 - MDN 웹 페이지에 등록된 메타 태그의 `name` 과 `content` 속성
 - 구글에 MDN을 검색하면 검색 엔진이 메타 태그의 `content` 내용을 검색 결과와 함께 추가적으로 보여줌
 
-
 검색 엔진 최적화를 위한 메타 태그
 
 ```html
@@ -56,33 +59,33 @@ name
 
 1. 검색 엔진을 위한 키워드 정의
 
-    ```html
-    <meta name="keyword" content="HTML, meta, tag, element, reference" />
-    ```
+   ```html
+   <meta name="keyword" content="HTML, meta, tag, element, reference" />
+   ```
 
 2. 웹 페이지에 대한 설명(description) 정의
 
-    ```html
-    <meta name="description" content="HTML meta tag page" />
-    ```
+   ```html
+   <meta name="description" content="HTML meta tag page" />
+   ```
 
 3. 문서의 저자(author) 정의
 
-    ```html
-    <meta name="author" content="TCPSchool" />
-    ```
+   ```html
+   <meta name="author" content="TCPSchool" />
+   ```
 
 4. 5초 뒤에 다른 페이지로 리다이렉트(redirect)
 
-    ```html
-    <meta http-equiv="refresh" content="5;url=http://www.tcpschool.com" />
-    ```
+   ```html
+   <meta http-equiv="refresh" content="5;url=http://www.tcpschool.com" />
+   ```
 
 5. 모든 장치에서 웹 사이트가 잘보이도록 뷰포트(viewport) 설정
 
-    ```html
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    ```
+   ```html
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   ```
 
 ## 웹 표준 및 웹 접근성
 
@@ -96,8 +99,8 @@ name
 ### HTML5에서 추가된 내용
 
 - `canvas` 기능 추가
-    - JS를 통해 다양한 그림을 그릴 수 있는 공간 제공
-    - WebGL과 같은 3D 기술의 구현이 웹 브라우저를 통해서도 가능해짐
+  - JS를 통해 다양한 그림을 그릴 수 있는 공간 제공
+  - WebGL과 같은 3D 기술의 구현이 웹 브라우저를 통해서도 가능해짐
 - 모든 디바이스에서 웹페이지와 호환이 가능해짐
 - 시멘틱 웹 기술 지원
 
@@ -120,7 +123,6 @@ name
 - 의미 요소(HTML로 만든 문서에 추가적으로 의미 부여)
 - 서로 관계가 있는 정보를 파악하고 콘텐츠가 어떤 맥락 안에 있는지 알기 쉽게 해줌
 - 시멘틱 태그를 잘 사용 ⇒ 검색엔진을 통해 검색이 잘 될 수 있도록 도와줌
-
 
 - header - 헤더
 - nav - 내비게이션 바
@@ -159,9 +161,9 @@ name
 
 - `submit`
 - form 태그 안에 form data와 관련 없는 버튼 태그를 만든 후 그 버튼을 누르면 form이 전송되는 경우가 있으니 버튼 태그는 꼭 type 명시
-    - `submit` : 폼 제출
-    - `reset` : 폼 안의 작성 내용 초기화
-    - click 이벤트와 연결시켜 JS 활용
+  - `submit` : 폼 제출
+  - `reset` : 폼 안의 작성 내용 초기화
+  - click 이벤트와 연결시켜 JS 활용
 
 ### section 태그와 article 태그의 차이
 
