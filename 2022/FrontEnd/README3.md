@@ -143,3 +143,23 @@ module.exports = {
 - 로더 사용
   (webpack은 js밖에 모르는데, js파일 뿐만 아니라 이미지, 폰트 등도 전부 모듈로 관리. js가 아닌 파일을 webpack이 이해할 수 있게 변경하는 역할이 로더)
 - 빠른 컴파일
+
+## Babel : Javascript transpiler
+
+어떤 특정 언어로 작성된 소스 코드를 다른 소스 코드로 변환하는 것
+
+### transpiler가 필요한 이유?
+
+모든 브라우저가 ES6+의 기능을 제공하지 않기 때문에 이를 ES5 코드로 변환시키는 과정 필요(Babel)
+
+### compile과의 차이
+
+**Compile**
+
+- 입력과 출력의 추상화 수준이 다름
+- C언어로 작성된 소스코드를 기계어로 변환
+
+**Transpile**
+
+- 입력과 출력의 추상화 수준이 비슷함
+- Typescript → Javascript, C++ → C, CoffeScript → Javascript
