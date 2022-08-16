@@ -294,7 +294,7 @@ function makeRequest() {
             return moreData;
           })
           .catch((error) => {
-            console.log("Error while makeMoreRequest", error);
+            console.log('Error while makeMoreRequest', error);
           });
       } else {
         console.log(data);
@@ -302,7 +302,7 @@ function makeRequest() {
       }
     })
     .catch((error) => {
-      console.log("Error while getData", error);
+      console.log('Error while getData', error);
     });
 }
 ```
@@ -322,7 +322,7 @@ async function makeRequest() {
       return data;
     }
   } catch (error) {
-    console.log("Error while getData", error);
+    console.log('Error while getData', error);
   }
 }
 ```
@@ -339,7 +339,7 @@ async function makeRequest() {
 기존의 function 생략 ⇒로 대체 표현
 
 ```jsx
-var materials = ["Hydrogen", "Helium", "Lithium", "Beryllium"];
+var materials = ['Hydrogen', 'Helium', 'Lithium', 'Beryllium'];
 
 materials.map(function (material) {
   return material.length;
@@ -403,3 +403,20 @@ var p = new Person();
 - 변수에 null을 할당하는 것은 변수가 이전에 참조하던 값을 더 이상 참조하지 않겠다는 의미
 - 이는 이전에 할당되어 있던 값에 대한 참조를 명시적으로 제거하는 것 의미
 - js엔진은 누구도 참조하지 않은 메모리 공간에 대해 가비지 콜렉션 수행
+
+## Object.assign()
+
+- 출처 객체들의 모든 열거 가능한 자체 속성을 복사하여 대상 객체에 붙여넣고 객체 반환됨
+
+```jsx
+const target = { a: 1, b: 2 };
+const source = { b: 4, c: 5 };
+
+const returnedTarget = Object.assign(target, source);
+
+console.log(target);
+// expected output: Object { a: 1, b: 4, c: 5 }
+
+console.log(returnedTarget);
+// expected output: Object { a: 1, b: 4, c: 5 }
+```
