@@ -21,3 +21,28 @@
 
 - `<input type=”checkbox”>`, `<input type=”radio”>` 는 `defaultChecked`
 - `<select>, <area>` 는 `defaultValue` 지원
+
+## cloneElement()
+
+```jsx
+React.cloneElement(element, [config], [...children]);
+```
+
+- `element` 를 기준으로 새로운 `React element`를 복사하고 반환
+- `config` 는 `key` , `ref` 그리고 모든 새로운 `props` 포함
+- 새로운 `element` 는 원본 `element` 가 가졌던 `props` 가 새로운 `props` 와 얕게 합쳐진 뒤 주어짐
+- 새로운 자식들은 기존의 자식들 대체
+- `config` 에 `key` 와 `ref` 가 없다면 원본 `element` 의 `key` 와 `ref` 는 그대로 유지
+
+`React.cloneElement()` 는 아래 구문과 거의 동일
+
+```jsx
+<element.type {...element.props} {...props}>
+  {children}
+</element.type>
+```
+
+- but, `ref` 들이 유지된다는 점이 다름
+  - 조상이 가지고 있을 `ref` 를 사용하여 자식에게 접근하는 것이 허용됨
+  - 새로운 `element` 에 덧붙여지는 것과 동일한 `ref` 를 얻을 수 있음
+  - 새로운 `ref` 가 있다면 이전 값 대체
