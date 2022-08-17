@@ -46,3 +46,25 @@ React.cloneElement(element, [config], [...children]);
   - 조상이 가지고 있을 `ref` 를 사용하여 자식에게 접근하는 것이 허용됨
   - 새로운 `element` 에 덧붙여지는 것과 동일한 `ref` 를 얻을 수 있음
   - 새로운 `ref` 가 있다면 이전 값 대체
+
+## e.preventDefault()
+
+React에서는 `preventDefault()`을 명시적으로 호출
+
+- 브라우저에서 처리되는 기존 액션이 진행되지 않게 ….
+- html에서 제공하는 기본 이벤트 방지 (form의 submit 전송 및 새로고침 또는 a의 href 를 통해 특정 사이트로 이동)
+
+```jsx
+const handleClick = (test) => (e) => [
+	e.preventDefault();
+	console.log(e);
+	console.log(test);
+}}
+
+<button onClick={handleClick('test')} />버튼</button>
+// onClick={handleClick(’test’)} ⇒ 원래는 안되는데... e가 전달되고 ... e가 벗겨져?
+```
+
+**event 객체**
+
+event handler 함수의 param으로 전달 되는 event 객체 (위 코드에서는 e)는, pure javascript 코딩시 전달되는 event 객체와 다른 객체, 즉 React가 정의한 `SyntheticEvent` 객체
