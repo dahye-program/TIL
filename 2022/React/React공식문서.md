@@ -112,17 +112,59 @@ ReactDOM.render(element, document.getElementById('root'));
   - 모든 React 컴포넌트는 자신의 props를 다룰 때 반드시 순수 함수처럼 동작해야 함
 
   ```jsx
+  // 순수 함수 - 동일한 입력값에 대해 동일한 결과 반환
   function sum(a, b) {
     return a + b;
   }
   ```
 
-  - 순수 함수 - 동일한 입력값에 대해 동일한 결과 반환
-
   ```jsx
+  // 순수 함수가 아닌 예
   function withdraw(account, amount) {
     account.total -= amount;
   }
   ```
 
-  - 순수 함수가 아닌 예
+## event 처리
+
+- React의 이벤트 처리는 DOM 방식의 이벤트 처리와 매우 유사
+- React의 이벤트는 카멜 케이스(camelCase) 사용
+- JSX를 사용하여 문자열이 아닌 함수로 이벤트 핸들러 전달
+
+  ```jsx
+  <button onclick="onclickfunc()">버튼</button>
+  =>
+  <button onClick={onClickFunc}>버튼</button>
+  ```
+
+- false를 반환하더라도 기본 동작 방지 불가능
+- `preventDefault` 을 명시적으로 호출해야 함
+
+  ```jsx
+  // js에서는
+  <form onsubmit="console.log('You clicked submit.'); return false">
+    <button type="submit">Submit</button>
+  </form>;
+
+  // React에서는
+  function Form() {
+    function handleSubmit(e) {
+      e.preventDefault();
+      console.log('You clicked submit.');
+    }
+
+    return (
+      <form onSubmit={handleSubmit}>
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+  ```
+
+- react에서 e는 합성 이벤트
+- 브라우저 고유 이벤트와 정확히 동일하게 동작하지는 않음
+- React를 사용할 때 DOM 엘리먼트가 생성된 후 리스너를 추가하기 위해 `addEventListener`
+  를 호출할 필요 없음. 대신, 엘리먼트가 처음 렌더링될 때 리스너를 제공하면 됨
+- 일반적으로 `onClick={this.handleClick}`과 같이 뒤에 `()`를 사용하지 않고 메서드를 참조할 경우, 해당 메서드를 바인딩해야함
+- `bind` 를 호출하는 것이 불편하다면, 콜백에 화살표함수 사용
+  - `<button onClick={() => handleClick()}>`
