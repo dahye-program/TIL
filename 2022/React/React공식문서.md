@@ -168,3 +168,12 @@ ReactDOM.render(element, document.getElementById('root'));
 - 일반적으로 `onClick={this.handleClick}`과 같이 뒤에 `()`를 사용하지 않고 메서드를 참조할 경우, 해당 메서드를 바인딩해야함
 - `bind` 를 호출하는 것이 불편하다면, 콜백에 화살표함수 사용
   - `<button onClick={() => handleClick()}>`
+
+## 조건부 렌더링
+
+- React 에서는 원하는 동작을 캡슐화하는 컴포넌트를 생성할 수 있음
+- `true && expression` ⇒ 항상 `expression` 으로 표현
+- `false && expression` ⇒ 항상 `false`
+- `조건 ? 참 : 거짓`
+- 컴포넌트 렌더링 막기 ⇒ 렌더링 결과 출력 대신 `null` 반환
+  - 컴포넌트의 `render` 메서드로부터 `null`을 반환하는 것은 생명주기 메서드 호출에 영향을 주지 않음
