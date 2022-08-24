@@ -37,3 +37,69 @@ react query는 기본적으로 캐싱된 데이터를 `stale` 한 상태로 여�
   - 한 컴포넌트에 여러개의 `useQuery` 가 있다면 하나 끝나고 다음이 실행되는 것이 아닌 두개의 `useQuery` 가 동시에 실행
   - 여러개의 비동기 query가 있다면 `useQueries` 권유
 - `enabled` 를 사용하면 `useQuery` 를 동기적으로 사용 가능
+
+### Nullish coalescing operator(널 병합 연산자)
+
+- **널 병합 연산자 (`??`)**는 왼쪽 피연산자가 `null` 또는 `undefined`일 때 오른쪽 피연산자를 반환하고, 그렇지 않으면 왼쪽 피연산자를 반환하는 논리 연산자
+- `false` 에 해당할 경우 오른쪽 피연산자를 반환하는 `||` 와는 대조됨
+- 우선순위는 `||` 의 바로 아래, 삼항 연산자의 바로 위
+
+  ```jsx
+  let foo;
+
+  let text = foo || 'hello';
+  ```
+
+- `||` 의 경우 `boolean` 논리 연산자 때문에 강제 변환되어 `falsy` 한 값 `0, '', NaN, null, undefined` 은 반환되지 않음
+
+### Optional chaning(?.)
+
+- `null` 또는 `undefined` 일 수 있는 객체의 속성에 접근할 때 유용
+
+  ```jsx
+  let foo = {fooProp: 'hi'}
+
+  console.log(foo.fooProp?.toUpperCase()); // HI
+  console.log(foo.testProp?.toUpperCase()); // undefined
+
+  -------------------------------
+  onChange?.(props);
+  ```
+
+### `{...props}`
+
+```jsx
+return (
+  <NavLink
+    key={route.path}
+    {...{
+      href: route.path,
+      label: route.name,
+      active: navigation.current.parent.path === route.path,
+      ...(route.path === '/' && { currentDateHtml }),
+    }}
+  />
+);
+```
+
+```jsx
+<NavLink
+  key={route.path}
+  {…{
+  href: route.path,
+  label: route.name,
+  active: navigation.current.parent.path === route.path,
+  …(route.path === ‘/’ && {currentDateHtml}),
+  }}
+/>
+⇒
+href={route.path}
+label={route.name}
+active={navigation.current.parent.path === route.path}
+(route.path === ‘/’ 가 참일 경우)
+currentDateHtml={currentDateHtml}
+`...(route.path === '/' && {currentDateHtml})`
+…(조건 && 실행문)
+⇒ route.path === ‘/’ 이 참이면 {currentDateHtml: currentDataHtml}
+obj ⇒ key, value가 이름이 같을 경우 생략
+```
