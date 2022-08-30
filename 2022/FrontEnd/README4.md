@@ -13,7 +13,7 @@
 - 버블링과 정반대 …
 
   ```jsx
-  target.addEventListener("click", function () {}, true);
+  target.addEventListener('click', function () {}, true);
   // true => 캡처링됨
   ```
 
@@ -22,7 +22,7 @@
 - 이벤트의 전파 막기
 
   ```jsx
-  target.addEventListener("click", function (e) {
+  target.addEventListener('click', function (e) {
     e.stopPropagation();
   });
   ```
@@ -79,3 +79,69 @@
   // 호출
   handle(1)(2)(3);
   ```
+
+## 즉시실행함수(IIFE, Immediately Invoked Function Expression)
+
+- 정의되자마자 즉시 실행되는 함수
+
+  ```jsx
+  (function () {
+    statements;
+  })();
+
+  (() => {
+    statements;
+  })();
+  ```
+
+- 첫번째는 괄호로 둘러싸인 익명함수
+  - 전역 스코프에 불필요한 변수를 추가해서 오염시키는 것을 방지
+  - 즉시실행함수 내부 안으로 다른 변수들이 접근하는 것을 막을 수 있는 방법
+- 두번째는 즉시실행함수를 생성하는 괄호
+
+  ```jsx
+  let result = (function () {
+    let name = 'dahye';
+    return name;
+  })();
+
+  result; //dahye
+  // 변수를 할당하면 함수 자체는 저장되지 않고 함수가 실행된 결과를 저장
+  ```
+
+사용 이유
+
+- 필요없는 전역변수 생성 줄임
+- private한 변수 생성 가능
+
+`useEffect` 는 `clean up` 함수 외에 아무것도 반환하지 않음,
+
+그럼 `useEffect` 안에서 비동기 함수 실행 하려면 ?????
+
+- 비동기 함수를 `useEffect` 외부에서 정의 후 `useEffect` 에서 호출
+
+  ```jsx
+  const getPosts = async () => {
+    const posts = await axios.get('url');
+    setPosts(posts.data);
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+  ```
+
+- 비동기 함수를 `useEffect` 내부에서 정의 후 `useEffect` 에서 호출
+
+  ```jsx
+  useEffect(() => {
+    const getPosts = async () => {
+      const posts = await axios.get('url');
+      setPosts(posts.data);
+    };
+
+    getPosts();
+  }, []);
+  ```
+
+- 즉시실행함수 사용
