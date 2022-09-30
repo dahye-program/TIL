@@ -103,3 +103,96 @@ currentDateHtml={currentDateHtml}
 ⇒ route.path === ‘/’ 이 참이면 {currentDateHtml: currentDataHtml}
 obj ⇒ key, value가 이름이 같을 경우 생략
 ```
+
+## react-dnd
+
+- Flux 및 Redux 아키텍처와 유사
+
+### Items and Types
+
+- 드래그할 때 컴포넌트나 DOM 노드가 드래그되고있다고 말하지 않음
+  - 특정 유형의 항목이 드래그되고있다고 말함
+- 항목은 드래그되는 항목을 설명하는 일반 JS 개체
+- 끌어온 데이터를 일반 개체로 설명하면 구성 요소를 분리된 상태로 유지하고 서로를 인식하지 못하는데 도움이 됨
+- **유형**은 애플리케이션에서 전체 항목 클래스를 고유하게 식별하는 문자열 또는 기호
+
+### Monitors
+
+- 모니터를 통해 끌어서 놓기 상태 변화에 대응하여 구성 요소의 props를 업데이트할 수 있음
+- 드래그 작업이 진행중, 진행중이 아님
+- 현재 유형과 현재 항목이 있다, 없다
+- _React DnD는_ 모니터라는 내부 상태 저장소에 대한 몇 개의 작은 래퍼를 통해 이 상태를 구성 요소에 노출
+
+### Connectors
+
+- 커넥터를 사용하면 미리 정의된 역할(드래그 소스, 드래그 미리보기 또는 드롭 대상) 중 하나를 렌더링 함수의 DOM 노드에 할당할 수 있음
+
+ex)
+
+- drag 대상
+
+  ```jsx
+  import { useDrag } from 'react-dnd';
+
+  function Box() {
+    const [{ isDragging }, drag] = useDrag({
+      type: 'BOX',
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    });
+
+    return (
+      <div ref={drag} style={{ opcity: isDragging ? 0.5 : 1 }}>
+        {name}
+        {isDragging && 'ㅋㅋ'}
+      </div>
+    );
+  }
+  ```
+
+- drop 대상
+
+  ```jsx
+  import Box from './Box';
+  import {useDrop} from 'react-dnd';
+
+  function Basket(){
+    const [{canDrop, isOver}, drop] = useDrop({
+      accept: 'BOX',
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      }),
+    });
+
+  return(
+    <Box/>
+    <div
+      ref={drop}
+      role={'Dustbin'} // ??
+      style={{backgroundColor: isOver ? 'gray' : 'red'}}>
+    {canDrop ? 'Release to drop' : 'Drag a box here'}
+    </div>
+  ```
+
+- App
+
+  ```jsx
+  import React from 'react';
+
+  import { DndProvider } from 'react-dnd';
+  import { HTML5Backend } from 'react-dnd-html5-backend';
+
+  import Basket from './components/dnd/Basket';
+
+  function App() {
+    return (
+      <DndProvider backend={HTML5Backend}>
+        <Basket />
+      </DndProvider>
+    );
+  }
+
+  export default App;
+  ```
