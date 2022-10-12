@@ -170,3 +170,35 @@ let deepArr = JSON.parse(JSON.stringify(arr1));
 ```
 
 - JSON.stringify()로 string으로 타입캐스팅 후 다시 JSON.parse로 object로 바꿈 ⇒ 완전히 다른 객체로 생성되며 깊은 복사 가능
+
+## 배열 합치기 push, concat, …(spread operator)
+
+- push()
+  - 배열 끝에 요소 추가, 배열의 새로운 길이 반환
+- concat()
+
+  - 기존 배열에 합쳐서 새로운 배열 리턴
+
+  ```jsx
+  const arr = [1, 2, 3];
+  const newArr = arr.concat('a', ['b', 'c'], 'abc');
+
+  console.log(newArr);
+  // 1, 2, 3, a, b, c, abc
+  // 파라미터가 배열인 경우 배열 안의 원소들을 꺼내 새로운 배열에 포함
+  ```
+
+- … (spread operator, 전개연산자)
+
+  - 배열에서 전개연산자는 배열의 원소들을 분해해서 개별요소로 만들어줌
+
+  ```jsx
+  const arr1 = [1, 2, 3];
+  const arr2 = [4, 5, 6];
+  const arr3 = [7, 8, 9];
+
+  const newArr = [...arr1, ...arr2, ...arr3];
+
+  console.log(newArr);
+  // 1, 2, 3, 4, 5, 6, 7, 8, 9
+  ```
