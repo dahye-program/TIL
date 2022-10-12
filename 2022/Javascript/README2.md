@@ -140,3 +140,33 @@ let { a: aa = 10, b: bb = 5 } = { a: 3 };
 console.log(aa); // 3
 console.log(bb); // 5
 ```
+
+## javascript array copy
+
+- slice(), concat(), spread 연산자, Array.from()
+
+### 얕은 복사(shallow copy)
+
+- 참조 주소 공유
+- 얕은 복사는 alias로 인해 같은 주소를 공유하기 때문에 복사한 객체를 변경하면 기존 객체도 변경되는 문제가 발생할 수 있음
+- 기존 배열 arr1을 얕은 복사한 arr2의 값을 변경 시, arr1의 값도 같이 변경됨
+
+  ```jsx
+  let arr1 = [{ name: 'a' }, { name: 'b' }];
+  let arr2 = arr1;
+
+  arr2[0].name = 'c';
+  console.log(arr1, arr2);
+  // {name: "c"}, {name: "b"}, {name: "c"}, {name: "b"}
+  ```
+
+### 깊은 복사(deep copy)
+
+- `JSON.parse(JSON.stringify())`
+- 참조 주소 공유 X, 참조 공간도 복사됨
+
+```jsx
+let deepArr = JSON.parse(JSON.stringify(arr1));
+```
+
+- JSON.stringify()로 string으로 타입캐스팅 후 다시 JSON.parse로 object로 바꿈 ⇒ 완전히 다른 객체로 생성되며 깊은 복사 가능
