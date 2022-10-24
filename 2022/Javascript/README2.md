@@ -202,3 +202,94 @@ let deepArr = JSON.parse(JSON.stringify(arr1));
   console.log(newArr);
   // 1, 2, 3, 4, 5, 6, 7, 8, 9
   ```
+
+## Map
+
+- key가 있는 데이터 저장
+- object와 유사하지만, object와 달리 key에 다양한 자료형을 허용한다는 차이점 존재
+  - object는 키를 문자형으로 변환하지만 Map은 타입 변환 없이 그대로 유지
+
+### Map - Method
+
+```jsx
+// (1) key의 다양한 자료형
+let map = new Map();
+
+map.set('1', 'str'); // string
+map.set(1, 'num'); // number
+
+console.log(map.get(1)); // 'num'
+console.log(map.get('1')); // 'str'
+
+// (2) key로 object 사용
+let dahye = { name: 'dahye' };
+let map = new Map();
+map.set(dahye, 123);
+
+console.log(map.get(dahye)); // 123
+```
+
+- `new Map()` : 맵 생성
+- `map.set(key,value)` : `key` 를 이용하여 `value` 저장
+- `map.get(key)` : `key` 에 해당하는 값 반환, `key` 가 존재하지 않으면 `undefined` 반환
+- `map.has(key)` : `key` 가 존재하면 `true` , `key` 가 존재하지 않으면 `false` 반환
+- `map.delete(key)` : `key` 에 해당하는 값 삭제
+- `map.clear()` : 맵 안의 모든 요소 제거
+- `map.size` : 맵 요소의 개수 반환
+
+### Map - Iteration
+
+```jsx
+let recipeMap = new Map([
+  ['cucumber', 500],
+  ['tomatoes', 350],
+  ['onion', 50],
+]);
+
+// 키(vegetable)를 대상으로 순회
+for (let vegetable of recipeMap.keys()) {
+  console.log(vegetable); // cucumber, tomatoes, onion
+}
+
+// 값(amount)을 대상으로 순회
+for (let amount of recipeMap.values()) {
+  console.log(amount); // 500, 350, 50
+}
+
+// [키, 값] 쌍을 대상으로 순회
+for (let entry of recipeMap) {
+  // recipeMap.entries()와 동일
+  console.log(entry); // cucumber,500 ...
+}
+```
+
+- `map.keys()` : 각 요소의 `key` 를 모은 반복 가능한(`iterable object`)객체를 반환
+- `map.values()` : 각요소의 `value` 를 모은 `iterable object` 객체를 반환
+- `map.entries()` : 요소의 `[key, value]` 를 한 쌍으로 하는 `iterable object` 객체를 반환 ⇒ 이 객체는 `for..of` 반복문의 기초로 쓰임
+
+### Map - Conversion
+
+```jsx
+// (1) Convert object to map
+let obj = {
+  name: 'dahye',
+  age: 24,
+};
+
+let map = new Map(Object.entries(obj));
+console.log(map.get('name')); // dahye
+
+// (2) Convert map to object
+let map = new Map();
+map.set('banana', 1);
+map.set('orange', 2);
+map.set('meat', 4);
+
+let obj = Object.fromEntries(map);
+// obj = { banana: 1, orange: 2, meat: 4 }
+
+console.log(prices.orange); // 2
+```
+
+- `object.entries` : `object` 를 `map` 으로 변환
+- `object.fromEntries` : `map` 을 `object` 로 변환
