@@ -293,3 +293,23 @@ console.log(prices.orange); // 2
 
 - `object.entries` : `object` 를 `map` 으로 변환
 - `object.fromEntries` : `map` 을 `object` 로 변환
+
+## 연산자
+### 논리연산자 ! (NOT)
+- 인수를 하나 받아서 아래 연산 수행
+  - 피연산자를 `불린형(true/false)`로 변환
+  - 1에서 변환된 값의 역을 반환
+  ```
+  console.log(!true) // false 
+  console.log(!0) // true
+  ```
+- `NOT` 을 두 개 연달아 사용하면 값을 불린형으로 변환 가능
+  ```
+  let str = 'hello';
+  console.log(!!str); // true
+  console.log(!!null); // false
+  ```
+- 첫 번째 `NOT` 연산자는 피연산자로 받은 값을 불린형으로 변환한 후 이 값의 역을 반환 
+- 두 번째 `NOT` 연산자는 첫 번째 NOT 연산자가 반환한 값의 역을 반환
+- 이렇게 `NOT` 연산자를 연달아 사용하면 특정 값을 불린형으로 변환 가능
++ 내장함수 `Boolean` 형을 사용하면 `!!` 을 사용한 것과 같은 결과 도출
