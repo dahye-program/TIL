@@ -38,6 +38,99 @@ react query는 기본적으로 캐싱된 데이터를 `stale` 한 상태로 여�
   - 여러개의 비동기 query가 있다면 `useQueries` 권유
 - `enabled` 를 사용하면 `useQuery` 를 동기적으로 사용 가능
 
+### useMutation
+
+- `useQuery` 와 다르게 `mutation` 은 데이터를 생성, 업데이트, 삭제할 때 사용
+
+  ```jsx
+  // 1
+  const mutation = useMutation(mutationFn);
+  const mutation = useMutation(()=> axios.post('',data),{
+  	onSuccess: () => {
+  		console.log('성공');
+  	},
+
+  	onError: () => {
+  		console.log('실패');
+  	},
+  	onSettled: () => {
+  		console.log('onSettled'); // 성공이든 실패이든 ...
+  	}
+
+  // 2
+  const mutation = useMutation({
+  	mutationFn: mutationFn
+  })
+  const mutation = useMutation({
+  	mutation: () => axios.post('', data),
+  		onSuccess: () => {
+  		console.log('성공');
+  	},
+
+  	onError: () => {
+  		console.log('실패');
+  	},
+  	onSettled: () => {
+  		console.log('onSettled'); // 성공이든 실패이든 ...
+  	}
+  })
+
+  ```
+
+  ```jsx
+  // useMutation
+  const {
+    data,
+    error,
+    isError,
+    isIdle,
+    isLoading,
+    isPaused,
+    isSuccess,
+    mutate,
+    mutateAsync,
+    reset,
+    status,
+  } = useMutation(mutationFn, {
+    cacheTime,
+    mutationKey,
+    networkMode,
+    onError,
+    onMutate,
+    onSettled,
+    onSuccess,
+    retry,
+    retryDelay,
+    useErrorBoundary,
+    meta,
+  });
+
+  // mutate함수
+  mutate(variables, {
+    onError,
+    onSettled,
+    onSuccess,
+  });
+  ```
+
+- 파라미터로 쿼리 키를 받지 않고 `mutationFn` 을 받음
+- `mutationFn` 은 `promise` 처리가 이루어지는 함수
+- `mutate` 는 `useMutation` 을 통해 작성한 내용들이 실행될 수 있도록 도와주는 `trigger` 역할
+
+**invalidateQueries**
+
+- `useQuery` 에는 `staleTime` 과 `cacheTime` 개념 존재
+- 정해진 시간에 도달하지 않으면 새로운 데이터가 적재되어도 `useQuery` 는 변동없이 동일한 데이터를 화면에 보여줌
+- 이를 해결해주는 `invalidateQueries`
+- `invalidateQueries` 는 `useQuery` 에서 사용되는 `query key` 의 유효성을 제거
+- 유효성을 제거하는 이유는 서버로부터 다시 데이터를 조회해오기 위함
+- `const queryClient = useQueryClient();` → `queryClient.invalidateQueries('쿼리키');`
+
+**setQueryData**
+
+- `invalidateQueries` 말고도 데이터 업데이트해주는 방법
+- 기존에 `query key` 에 매핑되어있는 데이터를 새롭게 정의
+
 ### Nullish coalescing operator(널 병합 연산자)
 
 - **널 병합 연산자 (`??`)**는 왼쪽 피연산자가 `null` 또는 `undefined`일 때 오른쪽 피연산자를 반환하고, 그렇지 않으면 왼쪽 피연산자를 반환하는 논리 연산자
