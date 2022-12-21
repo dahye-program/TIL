@@ -131,7 +131,36 @@ react query는 기본적으로 캐싱된 데이터를 `stale` 한 상태로 여�
 - `invalidateQueries` 말고도 데이터 업데이트해주는 방법
 - 기존에 `query key` 에 매핑되어있는 데이터를 새롭게 정의
 
-### Nullish coalescing operator(널 병합 연산자)
+## React query의 라이프 사이클
+
+- A 쿼리 인스턴스가 mount 됨
+- 네트워크에서 데이터 fetch 하고 A라는 query key로 캐싱함
+- 이 데이터는 `fresh` 상태에서 `staleTime` (기본값: 0) 이후 `stale` 상태로 변경됨
+- A 쿼리 인스턴스가 unmount 됨
+- 캐시는 `cacheTime` 이 지나기전에 A 쿼리 인스턴스가 새롭게 mount 되면, fetch가 실행되고 `fresh` 한 값을 가져오는 동안 캐시 데이터를 보여줌
+
+### staleTime
+
+- 데이터가 `fresh` → `stale` 상태로 변경되는데 걸리는 시간
+- `fresh` 상태일 때는 쿼리 인스턴스가 새롭게 mount 되어도 네트워크 fetch가 일어나지 않음
+- 데이터가 한번 fetch 되고 나서 `staleTime` 이 지나지 않았다면 unmount 후 mount 되어도 fetch가 일어나지 않음
+- 기본값 0 ⇒ useQuery로 받아온 데이터는 받아오자마자 곧바로 `stale` 상태로 변함
+
+### cacheTime
+
+- 데이터가 `inactive` 상태일 때 캐싱된 상태로 남아있는 시간
+- 쿼리 인스턴스가 unmount 되면 데이터는 `inactive` 상태로 변경되며, 캐시는 `cacheTime` 만큼 유지
+- `cacheTime` 이 지나면 가비지 컬렉터로 수집되어 메모리에서 삭제됨
+- `cacheTime` 이 지나기 전에 쿼리 인스턴스가 다시 마운트되면, 데이터를 fetch 하는 동안 캐시 데이터를 보여줌
+- `cacheTime` 은 `staleTime` 과 관계없이, 무조건 inactive된 시점을 기준으로 캐시 데이터 삭제를 결정
+- 기본값 5분
+
+### refetch
+
+- 캐싱 결과는 조회하지 않고 서버에 요청
+- 지금 가지고 있는 데이터가 `fresh` 하지 않고 `stale` 하기 때문에 새 데이터로 갱신하기 위해 사용
+
+## Nullish coalescing operator(널 병합 연산자)
 
 - **널 병합 연산자 (`??`)**는 왼쪽 피연산자가 `null` 또는 `undefined`일 때 오른쪽 피연산자를 반환하고, 그렇지 않으면 왼쪽 피연산자를 반환하는 논리 연산자
 - `false` 에 해당할 경우 오른쪽 피연산자를 반환하는 `||` 와는 대조됨
